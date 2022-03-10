@@ -4,3 +4,6 @@
 
 💣
 ![FriesGIF](https://user-images.githubusercontent.com/94349629/156984508-667aeb99-dc46-4575-a1ef-7a1789ec6b84.gif)
+
+🍕![PepperoniPizzaGIF](https://user-images.githubusercontent.com/94349629/157621960-4d9aec44-c410-4f35-aa9e-bcf4c0b59037.gif)
+

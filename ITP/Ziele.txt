@@ -1,0 +1,13 @@
+Must-Have Ziele:
+Nachrichten Senden
+Nachrichten empfangen
+Nachrichten persistieren
+Verbindung aufbauen
+Verbindung trennen
+Sich authentifizieren
+
+Nice-To-Have Ziele:
+Gruppen erstellen
+Bilder verschicken
+Audio verschicken
+Nachrichten exportieren

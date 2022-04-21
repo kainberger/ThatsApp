@@ -7,3 +7,5 @@
 
 🍕![PepperoniPizzaGIF](https://user-images.githubusercontent.com/94349629/157621960-4d9aec44-c410-4f35-aa9e-bcf4c0b59037.gif)
 
+![ElonMuskApproveGIF](https://user-images.githubusercontent.com/94349629/164476301-7d392b2e-7b21-4a2d-9a33-742fd6642c1a.gif)
+

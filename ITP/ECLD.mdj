@@ -382,8 +382,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 688,
-									"top": 499,
+									"left": 680,
+									"top": 504,
 									"width": 90.68505859375,
 									"height": 10
 								},
@@ -398,6 +398,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
+									"left": -8,
+									"top": 5,
 									"width": 10,
 									"height": 10
 								},
@@ -412,6 +414,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
+									"left": -8,
+									"top": 5,
 									"width": 10,
 									"height": 10
 								}
@@ -1972,9 +1976,9 @@
 										"$ref": "AAAAAAGATHa2JPh9F3A="
 									},
 									"font": "Arial;13;0",
-									"left": 365,
+									"left": 364,
 									"top": 440,
-									"width": 5.05908203125,
+									"width": 7.22998046875,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 25,
@@ -1982,7 +1986,7 @@
 										"$ref": "AAAAAAGATHa2JfiA3RI="
 									},
 									"edgePosition": 2,
-									"text": "*"
+									"text": "1"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2033,10 +2037,11 @@
 									"model": {
 										"$ref": "AAAAAAGATHa2JPh+P9g="
 									},
+									"visible": false,
 									"font": "Arial;13;0",
-									"left": 603,
+									"left": 602,
 									"top": 367,
-									"width": 5.05908203125,
+									"width": 6.5,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -2144,7 +2149,8 @@
 								"$ref": "AAAAAAGABEu/8vvpwW8="
 							},
 							"name": "srcUser",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -2252,7 +2258,7 @@
 								"reference": {
 									"$ref": "AAAAAAGABFM0k/yB7Z8="
 								},
-								"multiplicity": "*"
+								"multiplicity": "1"
 							},
 							"end2": {
 								"_type": "UMLAssociationEnd",
@@ -2263,7 +2269,7 @@
 								"reference": {
 									"$ref": "AAAAAAGABEu/8vvpwW8="
 								},
-								"multiplicity": "*"
+								"navigable": false
 							}
 						}
 					],
@@ -2315,7 +2321,8 @@
 								"$ref": "AAAAAAGABFM0k/yB7Z8="
 							},
 							"name": "email",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					]
 				},

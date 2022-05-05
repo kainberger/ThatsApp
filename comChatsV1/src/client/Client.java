@@ -70,7 +70,7 @@ public class Client {
                         }while(msg!=null);
 
                         System.out.println("Server out of service");
-                        out.close()x;
+                        out.close();
                         clientSocket.close();
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();

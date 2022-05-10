@@ -21,19 +21,18 @@ public class SenderThread extends Thread{
     @Override
     public void run() {
 
-        try {
-            //loop through all Sockets and send message
-            for (Socket s : clients) {
-                if(s.isConnected()){
-                    try (ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream())){
-
-                        out.writeObject(msg);
-                    }
-
+        //loop through all Sockets and send message
+        for (Socket s : clients) {
+            if(s.isConnected() && s != Server.connectedUsers.get(msg.getSrc())){
+                try {
+                    ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+                    out.writeObject(msg);
+                    out.flush();
+                    System.out.println("Sent Message to Client: ");
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

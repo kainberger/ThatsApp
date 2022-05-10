@@ -3,6 +3,7 @@ package client;
 import muc.*;
 import server.Server;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -38,10 +39,10 @@ public class Client {
 
             System.out.print("Target: ");
             User target = new User(sc.next());
-            Chat chat = new Chat(new LinkedList<User>(Arrays.asList(user, target)));
+            Chat chat = new Chat(new LinkedList<>(Arrays.asList(user, target)));
 
             System.out.println("Message: ");
-            String msg = sc.nextLine();
+            String msg = sc.next();
 
 
 
@@ -70,16 +71,18 @@ public class Client {
                 @Override
                 public void run() {
                     try {
-                        do {
+
+                        while(clientSocket.isConnected()) {
+
                             Object o = in.readObject();
 
-                            if(o instanceof Message) {
+                            if (o instanceof Message) {
                                 msg = (Message) o;
 
-                                if(msg.getChat().equals(chat))
-                                    System.out.println("Server : "+msg);
+                                // if(msg.getChat().equals(chat))
+                                System.out.println("Message from: " + msg.getSrc().getName() + ": " + msg.getMsg());
                             }
-                        }while(msg!=null);
+                        }
 
                         System.out.println("Server out of service");
                         out.close();

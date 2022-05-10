@@ -15,11 +15,13 @@ import java.util.*;
 public class Server {
     public final static int PORT = 4999;
 
+    public static HashMap<User, Socket> connectedUsers = new HashMap<>();
+
     public static void main(String[] args) {
 
         ServerSocket serverSocket;
         List<Socket> clients = new LinkedList<>();
-        HashMap<User, Socket> connectedUsers = new HashMap<>();
+      //  HashMap<User, Socket> connectedUsers = new HashMap<>();
 
         final Scanner sc = new Scanner(System.in);
 
@@ -43,7 +45,7 @@ public class Server {
                  clients.add(clientSocket);
                  System.out.println("Connection accepted!");
 
-                 new ReceiverThread(clientSocket, connectedUsers).start();
+                 new ReceiverThread(clientSocket).start();
 
 
 

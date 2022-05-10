@@ -1,17 +1,11 @@
 package server;
 
-import muc.Chat;
-import muc.Message;
 import muc.User;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Server Klasse
@@ -20,28 +14,42 @@ import java.util.Scanner;
 
 public class Server {
     public final static int PORT = 4999;
+
     public static void main(String[] args) {
+
         ServerSocket serverSocket;
+        List<Socket> clients = new LinkedList<>();
+        HashMap<User, Socket> connectedUsers = new HashMap<>();
+
         final Scanner sc = new Scanner(System.in);
+
 
         try {
             serverSocket = new ServerSocket(PORT);
 
-            System.out.print("User: ");
+            System.out.println("Server runnning on " + PORT);
+
+           /* System.out.print("User: ");
             User user = new User(sc.nextLine());
             System.out.print("Target: ");
             User target = new User(sc.nextLine());
-            Chat chat = new Chat(new LinkedList<User>(Arrays.asList(user, target)));
+            Chat chat = new Chat(new LinkedList<User>(Arrays.asList(user, target)));*/
 
             while (true) {
-                ObjectOutputStream out;
-                ObjectInputStream in;
-                Socket clientSocket;
 
-                clientSocket = serverSocket.accept();
 
-                out = new ObjectOutputStream(clientSocket.getOutputStream());
-                in = new ObjectInputStream(clientSocket.getInputStream());
+                 Socket clientSocket = serverSocket.accept();
+
+                 clients.add(clientSocket);
+                 System.out.println("Connection accepted!");
+
+                 new ReceiverThread(clientSocket, connectedUsers).start();
+
+
+
+
+                 /*
+
 
                 Thread sender = new Thread(new Runnable() {
                     String msg;
@@ -58,9 +66,9 @@ public class Server {
                         }
                     }
                 });
-                sender.start();
+                sender.start();*/
 
-
+/*
                 Thread receiver = new Thread(new Runnable() {
                     Message msg;
                     @Override
@@ -90,6 +98,10 @@ public class Server {
                 receiver.start();
             }
         } catch(IOException e){
+            e.printStackTrace();
+        }*/
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

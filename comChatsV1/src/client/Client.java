@@ -1,8 +1,6 @@
 package client;
 
-import muc.Chat;
-import muc.Message;
-import muc.User;
+import muc.*;
 import server.Server;
 
 import java.io.IOException;
@@ -13,30 +11,43 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-;
+
 
 public class Client {
     public static void main(String[] args) {
+
         final Socket clientSocket; // socket used by client to send and recieve data from server
         final ObjectInputStream in;   // object to read data from socket
         final ObjectOutputStream out;     // object to write data into socket
         final Scanner sc = new Scanner(System.in); // object to read data from user's keybord
-        try {
-            clientSocket = new Socket("127.0.0.1", Server.PORT);
-            System.out.println("hi");
 
+
+        try {
+
+            clientSocket = new Socket("127.0.0.1", Server.PORT);
             out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new ObjectInputStream(clientSocket.getInputStream());
+
+            System.out.println("Connected to Server");
+
 
             System.out.print("User: ");
             User user = new User(sc.next());
+            //Login
+
+            new ClientSenderThread(new Message("", null, user),out).start();
+
             System.out.print("Target: ");
             User target = new User(sc.next());
             Chat chat = new Chat(new LinkedList<User>(Arrays.asList(user, target)));
 
-            sc.nextLine();
+            System.out.println("Message: ");
+            String msg = sc.nextLine();
 
-            Thread sender = new Thread(new Runnable() {
+
+
+            new ClientSenderThread(new Message(msg, chat, user),out).start();
+
+            /*Thread sender = new Thread(new Runnable() {
                 String msg;
                 @Override
                 public void run() {
@@ -51,7 +62,8 @@ public class Client {
                     }
                 }
             });
-            sender.start();
+            sender.start();*/
+            in = new ObjectInputStream(clientSocket.getInputStream());
 
             Thread receiver = new Thread(new Runnable() {
                 Message msg;
@@ -70,7 +82,7 @@ public class Client {
                         }while(msg!=null);
 
                         System.out.println("Server out of service");
-                        out.close()x;
+                        out.close();
                         clientSocket.close();
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
@@ -78,9 +90,10 @@ public class Client {
                 }
             });
             receiver.start();
+
         }catch (IOException e){
             e.printStackTrace();
         }
-    }
+        }
 
 }

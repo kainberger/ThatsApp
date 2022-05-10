@@ -4,19 +4,21 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class User implements Serializable {
-    private static int running_ID = 0;
+
     private String name;
-    private int id;
+    private String passwordHash;
+    private String email;
 
     public User(String name) {
         setName(name);
-        running_ID++;
-        id = running_ID;
+
+
     }
 
-    public User(String name, int id) {
+    public User(String name, String pwHash, String email) {
         setName(name);
-        setID(id);
+        setPasswordHash(pwHash);
+        setEmail(email);
     }
 
     public String getName() {
@@ -27,12 +29,20 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public int getID() {
-        return id;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    private void setID(int id) {
-        this.id = id;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #2A363F;"
+      stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="layout.login.viewController.LoginC">
+
+    <Label text="Sign in" textAlignment="CENTER" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="54.0"/>
+        </font>
+    </Label>
+
+    <VBox spacing="10.0">
+        <Label text="Username:" textFill="WHITE"/>
+        <TextField fx:id="tfUsername" promptText="Username"
+                   style="-fx-background-color: #2A363F; -fx-border-color: #465058;" styleClass="text-field"
+                   stylesheets="@Login.css"/>
+        <Label text="Password:" textFill="WHITE"/>
+        <TextField fx:id="tfPassword" promptText="Password"
+                   style="-fx-background-color: #2A363F; -fx-border-color: #465058;" styleClass="text-field"
+                   stylesheets="@Login.css"/>
+    </VBox>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+</VBox>

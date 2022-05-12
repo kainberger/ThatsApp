@@ -1,0 +1,11 @@
+VBox {
+    -fx-background-color: #121212;
+}
+
+ListView {
+    -fx-background-color: #ffffff;
+}
+
+.split-pane *.split-pane-divider {
+    -fx-padding: 0 1 0 1;
+}

@@ -103,6 +103,8 @@ public class Client {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ThatsAppException e) {
+            e.printStackTrace();
         }
 
     }

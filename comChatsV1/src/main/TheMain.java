@@ -2,7 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import login.viewController.LoginC;
+import layout.login.viewController.LoginC;
 
 public class TheMain extends Application {
     @Override

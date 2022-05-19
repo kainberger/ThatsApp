@@ -1,33 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0" spacing="10.0" style="-fx-background-color: #2A363F;"
-      stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="layout.login.viewController.LoginC">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="902.0" style="-fx-background-color: #2A363F;" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane prefHeight="567.0" prefWidth="376.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../pictures/fingerpoint.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="131.0" layoutY="243.0" text="ThatsApp" textFill="#fbfcfc">
+                    <font>
+                        <Font size="55.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Line endX="-86.0" endY="290.0" layoutX="484.0" layoutY="196.0" startX="-86.0" startY="-132.0" stroke="#465058" strokeWidth="2.0" />
+        <VBox alignment="CENTER" layoutX="443.0" layoutY="8.0" prefHeight="552.0" prefWidth="422.0">
+            <Label text="Sign in" textAlignment="CENTER" textFill="#fbfcfc">
+                <font>
+                    <Font name="System Bold" size="54.0" />
+                </font>
+            </Label>
 
-    <Label text="Sign in" textAlignment="CENTER" textFill="WHITE">
-        <font>
-            <Font name="System Bold" size="54.0"/>
-        </font>
-    </Label>
-
-    <VBox spacing="10.0">
-        <Label text="Username:" textFill="WHITE"/>
-        <TextField fx:id="tfUsername" promptText="Username"
-                   style="-fx-background-color: #2A363F; -fx-border-color: #465058;" styleClass="text-field"
-                   stylesheets="@Login.css"/>
-        <Label text="Password:" textFill="WHITE"/>
-        <TextField fx:id="tfPassword" promptText="Password"
-                   style="-fx-background-color: #2A363F; -fx-border-color: #465058;" styleClass="text-field"
-                   stylesheets="@Login.css"/>
-    </VBox>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-</VBox>
+            <VBox spacing="10.0">
+                <Label text="Username:" textFill="#fbfcfc">
+                    <font>
+                        <Font size="38.0" />
+                    </font>
+                </Label>
+                <TextField />
+                <Label text="Password:" textFill="#fbfcfc">
+                    <font>
+                        <Font size="38.0" />
+                    </font>
+                </Label>
+                <PasswordField />
+            </VBox>
+         <Button mnemonicParsing="false" text="Sign in" />
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

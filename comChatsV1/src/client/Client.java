@@ -3,15 +3,14 @@ package client;
 import muc.*;
 import server.Server;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
-
 
 
 public class Client {
@@ -28,6 +27,7 @@ public class Client {
             clientSocket = new Socket("127.0.0.1", Server.PORT);
             out = new ObjectOutputStream(clientSocket.getOutputStream());
 
+
             System.out.println("Connected to Server");
 
 
@@ -35,8 +35,10 @@ public class Client {
             User user = new User(sc.next());
             //Login
 
-            new ClientSenderThread(new Message("", null, user),out).start();
 
+            new ClientSenderThread(new Message("", null, user), out).start();
+
+            new ClientReceiverThread(clientSocket).start();
             System.out.print("Target: ");
             User target = new User(sc.next());
             Chat chat = new Chat(new LinkedList<>(Arrays.asList(user, target)));
@@ -45,8 +47,7 @@ public class Client {
             String msg = sc.next();
 
 
-
-            new ClientSenderThread(new Message(msg, chat, user),out).start();
+            new ClientSenderThread(new Message(msg, chat, user), out).start();
 
             /*Thread sender = new Thread(new Runnable() {
                 String msg;
@@ -64,15 +65,16 @@ public class Client {
                 }
             });
             sender.start();*/
-            in = new ObjectInputStream(clientSocket.getInputStream());
+            /*in = new ObjectInputStream(clientSocket.getInputStream());
 
             Thread receiver = new Thread(new Runnable() {
                 Message msg;
+
                 @Override
                 public void run() {
                     try {
 
-                        while(clientSocket.isConnected()) {
+                        while (clientSocket.isConnected()) {
 
                             Object o = in.readObject();
 
@@ -94,9 +96,14 @@ public class Client {
             });
             receiver.start();
 
-        }catch (IOException e){
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        }
 
+    }
 }

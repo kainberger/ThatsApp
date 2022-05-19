@@ -21,11 +21,13 @@ public class SenderThread extends Thread{
     @Override
     public void run() {
 
+        ObjectOutputStream out;
+
         //loop through all Sockets and send message
         for (Socket s : clients) {
             if(s.isConnected() && s != Server.connectedUsers.get(msg.getSrc())){
                 try {
-                    ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+                    out = Server.outputstreams.get(s);
                     out.writeObject(msg);
                     out.flush();
                     System.out.println("Sent Message to Client: ");

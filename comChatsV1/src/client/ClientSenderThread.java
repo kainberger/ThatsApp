@@ -21,7 +21,7 @@ public class ClientSenderThread extends Thread {
 
         try {
             out.writeObject(msg);
-
+            out.flush();
 
         } catch (IOException e) {
             e.printStackTrace();

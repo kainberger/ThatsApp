@@ -7,7 +7,6 @@ import muc.User;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ public class ReceiverThread extends Thread {
 
     final private Socket clientSocket;
     private final ObjectInputStream in;
-    private Message msg;
 
     public ReceiverThread(Socket clientSocket) throws IOException {
         this.clientSocket = clientSocket;
@@ -24,21 +22,23 @@ public class ReceiverThread extends Thread {
 
     @Override
     public void run() {
+        Message msg;
+        User user = null;
         try {
 
-            while (clientSocket.isConnected()) {
+            while (in.available() != -1) {  //While connected
 
                 Object o = in.readObject();     //read Objects
 
                 if (o instanceof Message) {
                     msg = (Message) o;
-
                     System.out.println("Server received from " + msg.getSrc().getName() + " msg: " + msg);
 
                     //check if it´s login msg
                     if (msg.getChat() == null) {
-                        Server.connectedUsers.put(msg.getSrc(), clientSocket);
-                        System.out.println("\nconnected Users: "+ Server.connectedUsers);
+                        user = msg.getSrc();
+                        Server.connectedUsers.put(user, clientSocket);
+                        System.out.println("\nconnected Users: " + Server.connectedUsers);
                     } else {
                         //start new SenderThread that sends msg to all connected clients
                         new SenderThread(msg, getSockets(msg.getChat())).start();
@@ -48,9 +48,17 @@ public class ReceiverThread extends Thread {
                 }
             }
 
+            clientSocket.close();
+
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("Client Disconnected");  //if disconnected
+
+            Server.clients.remove(clientSocket);
+            Server.outputstreams.remove(clientSocket);
+            if (user != null) {
+                Server.connectedUsers.remove(user);
+            }
         }
     }
 
@@ -59,9 +67,9 @@ public class ReceiverThread extends Thread {
         List<Socket> sockets = new LinkedList<>();
 
         //Get all Sockets from Users in Chat
-        System.out.println("connected User: "+ Server.connectedUsers);
+        System.out.println("connected User: " + Server.connectedUsers);
         for (User u : chat.getUsers()) {
-            System.out.println("user: "+u.toString());
+            System.out.println("user: " + u.toString());
             if (Server.connectedUsers.containsKey(u)) {
                 sockets.add(Server.connectedUsers.get(u));
             }

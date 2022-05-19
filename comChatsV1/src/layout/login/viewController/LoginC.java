@@ -1,12 +1,12 @@
 package layout.login.viewController;
 
+import javafx.scene.layout.AnchorPane;
 import layout.chat.viewController.ChatC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class LoginC {
     @FXML
-    private SplitPane root;
+    private AnchorPane root;
 
     @FXML
     private TextField tfUsername;
@@ -29,7 +29,7 @@ public class LoginC {
         LoginC loginC = loader.getController();
 
         // View aufbauen, konfigurieren, Handler hinzufügen, ...
-        //loginC.init();
+        loginC.init();
 
         // View anzeigen
         Scene scene = new Scene(parent);
@@ -47,6 +47,7 @@ public class LoginC {
         try {
             ChatC.show((Stage) root.getScene().getWindow());
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }

@@ -9,32 +9,39 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="root" dividerPositions="0.3" mouseTransparent="true" prefHeight="738.0" prefWidth="905.0" style="-fx-background-color: #2A363F;" stylesheets="@Chat.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane fx:id="root" dividerPositions="0.3" mouseTransparent="true" prefHeight="738.0" prefWidth="905.0"
+           style="-fx-background-color: #2A363F;" stylesheets="@Chat.css" xmlns="http://javafx.com/javafx/8.0.171"
+           xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="CENTER" SplitPane.resizableWithParent="false">
         <HBox>
             <children>
-                <Button fx:id="btUser" mnemonicParsing="false" prefHeight="65.0" prefWidth="272.0" style="-fx-background-color: transparent;" text="Insert Username" textFill="#fbfcfc" HBox.hgrow="ALWAYS">
+                <Button fx:id="btUser" mnemonicParsing="false" prefHeight="65.0" prefWidth="272.0"
+                        style="-fx-background-color: transparent;" text="Insert Username" textFill="#fbfcfc"
+                        HBox.hgrow="ALWAYS">
                     <font>
-                        <Font size="24.0" />
+                        <Font size="24.0"/>
                     </font>
                 </Button>
             </children>
         </HBox>
-        <Line endX="267.0" startX="66.5" stroke="#465058" strokeWidth="2.0" />
-        <ListView fx:id="lvFriends" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2A363F;" VBox.vgrow="ALWAYS">
+        <Line endX="267.0" startX="66.5" stroke="#465058" strokeWidth="2.0"/>
+        <ListView fx:id="lvFriends" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2A363F;"
+                  VBox.vgrow="ALWAYS">
         </ListView>
     </VBox>
     <VBox styleClass="msgWindow">
-      <children>
-         <VBox VBox.vgrow="ALWAYS" />
-         <HBox alignment="CENTER" prefHeight="74.0" prefWidth="632.0" style="-fx-background-color: #ffffff;">
-            <children>
-               <TextField prefHeight="44.0" prefWidth="399.0" promptText="type your message" style="-fx-background-color: transparent;">
-                  <font>
-                     <Font size="20.0" />
-                  </font>
-               </TextField>
-            </children>
-         </HBox>
-      </children></VBox>
+        <children>
+            <VBox VBox.vgrow="ALWAYS"/>
+            <HBox alignment="CENTER" prefHeight="74.0" prefWidth="632.0" style="-fx-background-color: #ffffff;">
+                <children>
+                    <TextField prefHeight="44.0" prefWidth="399.0" promptText="type your message"
+                               style="-fx-background-color: transparent;">
+                        <font>
+                            <Font size="20.0"/>
+                        </font>
+                    </TextField>
+                </children>
+            </HBox>
+        </children>
+    </VBox>
 </SplitPane>

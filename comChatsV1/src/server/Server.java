@@ -3,6 +3,7 @@ package server;
 import muc.User;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -16,14 +17,16 @@ public class Server {
     public final static int PORT = 4999;
 
     public static HashMap<User, Socket> connectedUsers = new HashMap<>();
+    public static HashMap<Socket, ObjectOutputStream> outputstreams = new HashMap<>();
+    public static List<Socket> clients = new LinkedList<>();
+
 
     public static void main(String[] args) {
 
         ServerSocket serverSocket;
-        List<Socket> clients = new LinkedList<>();
-      //  HashMap<User, Socket> connectedUsers = new HashMap<>();
 
-        final Scanner sc = new Scanner(System.in);
+
+        //final Scanner sc = new Scanner(System.in);
 
 
         try {
@@ -40,12 +43,14 @@ public class Server {
             while (true) {
 
 
-                 Socket clientSocket = serverSocket.accept();
+                Socket clientSocket = serverSocket.accept();
 
-                 clients.add(clientSocket);
-                 System.out.println("Connection accepted!");
+                clients.add(clientSocket);
+                outputstreams.put(clientSocket, new ObjectOutputStream(clientSocket.getOutputStream()));
+                System.out.println("Connection accepted!");
 
-                 new ReceiverThread(clientSocket).start();
+
+                new ReceiverThread(clientSocket).start();
 
 
 
@@ -107,4 +112,6 @@ public class Server {
             e.printStackTrace();
         }
     }
+
+
 }

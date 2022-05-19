@@ -4,6 +4,7 @@ import muc.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 
 public class ClientReceiverThread extends Thread {
@@ -26,7 +27,8 @@ public class ClientReceiverThread extends Thread {
                 in = new ObjectInputStream(clientSocket.getInputStream());
             }
 
-            while (clientSocket.isConnected()) {
+            while (in.available() != -1) {      //While connected
+
 
                 if (in.available() >= 0) {
 
@@ -44,8 +46,11 @@ public class ClientReceiverThread extends Thread {
             System.out.println("Server out of service");
             in.close();
             clientSocket.close();
+        }catch (ConnectException ce){
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 }

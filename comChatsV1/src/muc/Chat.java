@@ -18,6 +18,43 @@ public class Chat implements Serializable {
         this.users = users;
     }
 
+    public void addUser(User user) throws ThatsAppException {
+        if(user == null){
+            throw new ThatsAppException("User ist null!");
+        }
+
+        if(users.contains(user)){
+            throw new ThatsAppException("User ist bereits im Chat!");
+        }
+
+        if(!getUsers().contains(user)) {
+            getUsers().add(user);
+            user.addChat(this);
+        }
+    }
+
+    public void removeUser(User user) throws ThatsAppException {
+        if(getUsers().contains(user)) {
+            getUsers().remove(user);
+            user.getChats().remove(this);
+        }
+        else{
+            throw new ThatsAppException("User befindet sich nicht im Chat!");
+        }
+    }
+
+    public User getUserByName(String username) {
+        int i = 0;
+        while(i < users.size() && !users.get(i).getName().equals(username)){
+            i++;
+        }
+
+        if(i < users.size()){
+            return users.get(i);
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if(!(o instanceof Chat))

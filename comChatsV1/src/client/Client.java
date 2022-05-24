@@ -36,7 +36,7 @@ public class Client {
             //Login
 
 
-            new ClientSenderThread(new Message("", null, user), out).start();
+            new ClientSenderThread(new TextMessage("", null, user, Type.REGISTRATION), out).start();
 
             new ClientReceiverThread(clientSocket).start();
             System.out.print("Target: ");
@@ -47,7 +47,7 @@ public class Client {
             String msg = sc.next();
 
 
-            new ClientSenderThread(new Message(msg, chat, user), out).start();
+            new ClientSenderThread(new TextMessage(msg, chat, user, Type.STANDARD), out).start();
 
             /*Thread sender = new Thread(new Runnable() {
                 String msg;

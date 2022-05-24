@@ -1,6 +1,7 @@
 package client;
 
 import muc.Message;
+import muc.TextMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -21,7 +22,7 @@ public class ClientReceiverThread extends Thread {
     public void run() {
         try {
 
-            Message msg;
+            TextMessage msg;
 
             if (clientSocket.getInputStream().available() >= 0){
                 in = new ObjectInputStream(clientSocket.getInputStream());
@@ -34,8 +35,8 @@ public class ClientReceiverThread extends Thread {
 
                     Object o = in.readObject();
 
-                    if (o instanceof Message) {
-                        msg = (Message) o;
+                    if (o instanceof TextMessage) {
+                        msg = (TextMessage) o;
 
                         // if(msg.getChat().equals(chat))
                         System.out.println("Message from: " + msg.getSrc().getName() + ": " + msg.getMsg());

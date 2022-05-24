@@ -2,6 +2,7 @@ package server;
 
 import muc.Chat;
 import muc.Message;
+import muc.TextMessage;
 import muc.User;
 
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class ReceiverThread extends Thread {
 
                 Object o = in.readObject();     //read Objects
 
-                if (o instanceof Message) {
-                    msg = (Message) o;
+                if (o instanceof TextMessage) {
+                    msg = (TextMessage) o;
                     System.out.println("Server received from " + msg.getSrc().getName() + " msg: " + msg);
 
                     //check if it´s login msg

@@ -46,6 +46,37 @@ public class UserTest {
     }
 
     @Test
+    public void setEmail() throws ThatsAppException {
+        user.setEmail("user@htl.at");
+        assertEquals("user@htl.at", user.getEmail());
+    }
+
+    @Test
+    public void setEmail2() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setEmail("userhtl.at"));
+    }
+
+    @Test
+    public void setEmail3() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setEmail("@htl.at"));
+    }
+
+    @Test
+    public void setEmail4() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setEmail("user@.at"));
+    }
+
+    @Test
+    public void setEmail5() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setEmail("user@htlat"));
+    }
+
+    @Test
+    public void setEmail6() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setEmail("user@htl."));
+    }
+
+    @Test
     public void testGetChatByUsers() throws ThatsAppException {
         user.addChat(chat);
 

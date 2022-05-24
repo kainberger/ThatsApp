@@ -1,25 +1,20 @@
 package muc;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class Message implements Serializable {
-    private String msg;
+public abstract class Message implements Serializable {
     private Chat chat;
     private User src;
+    private Type type;
+    private LocalDateTime TimeStamp;
 
 
-    public Message(String msg, Chat chat, User src) {
-        setMsg(msg);
+    public Message(Chat chat, User src, Type type) {
         setChat(chat);
         setSrc(src);
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    private void setMsg(String msg) {
-        this.msg = msg;
+        setType(type);
+        refreshTimeStamp();
     }
 
     public User getSrc() {
@@ -38,8 +33,32 @@ public class Message implements Serializable {
         this.chat = chat;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    private void setType(Type type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getTimeStamp() {
+        return TimeStamp;
+    }
+
+    public void refreshTimeStamp() {
+        this.TimeStamp = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
-        return msg;
+        return "Message{" +
+                "chat=" + chat +
+                ", src=" + src +
+                '}';
+    }
+
+    public String toShortString() {
+        return "chat=" + chat +
+                ", src=" + src;
     }
 }

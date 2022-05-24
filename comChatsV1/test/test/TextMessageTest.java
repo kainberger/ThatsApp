@@ -1,23 +1,19 @@
 package test;
 
-import muc.Chat;
-import muc.Message;
-import muc.ThatsAppException;
-import muc.User;
+import muc.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MessageTest {
-    private Message msg;
+public class TextMessageTest {
+    private TextMessage msg;
     private User user;
     private Chat c;
 
-    public MessageTest() {}
+    public TextMessageTest() {}
 
     @BeforeEach
     public void setUp() throws ThatsAppException {
@@ -26,11 +22,11 @@ public class MessageTest {
         users.add(user);
         c = new Chat(users);
 
-        msg = new Message("Guten Tag", c, user);
+        msg = new TextMessage("Guten Tag", c, user, Type.STANDARD);
     }
 
     @Test
-    public void testMessage() {
+    public void testTextMessage() {
         assertEquals("Guten Tag", msg.getMsg());
         assertEquals(user, msg.getSrc());
         assertEquals(c, msg.getChat());

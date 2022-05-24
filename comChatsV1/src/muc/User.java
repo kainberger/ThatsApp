@@ -56,7 +56,41 @@ public class User implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws ThatsAppException {
+        if(email == null){
+            throw new ThatsAppException("E-Mail-Adresse ist null!");
+        }
+
+        if(email.indexOf('@') == -1){
+            throw new ThatsAppException("Ungültige E-Mail-Adresse!");
+        }
+
+        if(email.split("@")[1].indexOf('.') == -1){
+            throw new ThatsAppException("Ungültige E-Mail-Adresse!");
+        }
+
+        if(email.split("@")[1].split("\\.").length > 1) {
+            if (email.split("@")[1].split("\\.")[0].length() < 1) {
+                throw new ThatsAppException("Ungültige E-Mail-Adresse!");
+            }
+        }
+        else {
+            throw new ThatsAppException("Ungültige E-Mail-Adresse!");
+            }
+
+        if(email.split("@")[1].split(("\\.")).length > 1 ) {
+            if (email.split("@")[1].split(("\\."))[1].length() < 2) {
+                throw new ThatsAppException("Ungültige E-Mail-Adresse!");
+            }
+        }
+        else {
+            throw new ThatsAppException("Ungültige E-Mail-Adresse!");
+        }
+
+        if(email.split("@")[0].length() < 1){
+            throw new ThatsAppException("Ungültige E-Mail-Adresse!");
+        }
+
         this.email = email;
     }
 

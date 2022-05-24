@@ -25,7 +25,7 @@ public class ImageMessageTest {
         c = new Chat(users);
         img = new Image(null, false);
 
-        msg = new ImageMessage(img, c, user);
+        msg = new ImageMessage(img, c, user, Type.STANDARD);
     }
 
     @Test

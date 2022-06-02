@@ -8,12 +8,11 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SenderThread extends Thread{
-
+public class ServerSenderThread extends Thread{
     private Message msg;
     private final List<Socket> clients;
 
-    public SenderThread(Message msg, List<Socket> clients) throws IOException {
+    public ServerSenderThread(Message msg, List<Socket> clients) throws IOException {
         this.msg = msg;
         this.clients = new LinkedList<>(clients);
     }
@@ -21,23 +20,20 @@ public class SenderThread extends Thread{
     @Override
     public void run() {
 
+        ObjectOutputStream out;
+
         //loop through all Sockets and send message
         for (Socket s : clients) {
             if(s.isConnected() && s != Server.connectedUsers.get(msg.getSrc())){
                 try {
-                    ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+                    out = Server.outputstreams.get(s);
+                    System.out.println("Message sent: " + msg);
                     out.writeObject(msg);
                     out.flush();
-                    System.out.println("Sent Message to Client: ");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
-
-
-
-
-
 }

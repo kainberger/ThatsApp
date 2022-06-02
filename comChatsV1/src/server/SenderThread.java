@@ -30,7 +30,7 @@ public class SenderThread extends Thread{
                     out = Server.outputstreams.get(s);
                     out.writeObject(msg);
                     out.flush();
-                    System.out.println("Sent Message to Client: ");
+                    System.out.println("Sent Message to Client! ");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

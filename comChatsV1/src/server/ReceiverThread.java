@@ -102,7 +102,7 @@ public class ReceiverThread extends Thread {
         System.out.println("connected User: " + Server.connectedUsers);
         for (User u : chat.getUsers()) {
             //  System.out.println("user: " + u.toString());
-            if (Server.connectedUsers.containsKey(u)) {             //Error returns empty List
+            if (Server.connectedUsers.containsKey(u)) {
                 sockets.add(Server.connectedUsers.get(u));
             } else {
                 //save to unsent messages

@@ -14,3 +14,19 @@
 .chat-friend-Hbox {
     -fx-background-color: rgba(0, 0, 0, 0.2);
 }
+
+.friend-msg {
+    -fx-background-radius: 15px;
+    -fx-background-color: #00b0ff;
+    -fx-padding: 15px;
+    -fx-text-alignment: center;
+    -fx-font-size: 15px;
+}
+
+.user-msg {
+    -fx-background-radius: 15px;
+    -fx-background-color: #00bfb6;
+    -fx-padding: 15px;
+    -fx-text-alignment: center;
+    -fx-font-size: 15px;
+}

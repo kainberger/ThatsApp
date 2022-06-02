@@ -5,7 +5,7 @@
 - [x] Login
 - [x] Registration
 - [x] Send/Receive Msg
-- [ ] Password hashing
+- [x] Password hashing
 - [x] Login View
 - [ ] Registration View 
 - [ ] Chat View 

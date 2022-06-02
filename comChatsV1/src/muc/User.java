@@ -1,6 +1,14 @@
 package muc;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -10,9 +18,29 @@ public class User implements Serializable {
     private String name;
     private String passwordHash;
     private String email;
-    private List<Chat> chats;
+    private final List<Chat> chats;
 
     public User(String name) throws ThatsAppException {
+        setName(name);
+        chats = new LinkedList<>();
+    }
+
+    public User(String name, String pw, String email, boolean pwIsHash) throws ThatsAppException {
+        this(name);
+        setEmail(email);
+        if(pwIsHash) {
+            setPasswordHash(pw);
+        }
+        else{
+            setPassword(pw);
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private void setName(String name) throws ThatsAppException {
         if(name == null){
             throw new ThatsAppException("Name ist null!");
         }
@@ -24,23 +52,6 @@ public class User implements Serializable {
         if(name.length() > 15){
             throw new ThatsAppException("Name ist zu lang (> 15)!");
         }
-
-        setName(name);
-        chats = new LinkedList<>();
-    }
-
-    public User(String name, String pwHash, String email) throws ThatsAppException {
-        this(name);
-        setPasswordHash(pwHash);
-        setEmail(email);
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    private void setName(String name) {
         this.name = name;
     }
 
@@ -50,6 +61,40 @@ public class User implements Serializable {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public void setPassword(String pw) throws ThatsAppException {
+        if(pw.length() < 8){
+            throw new ThatsAppException("Passwort muss länger als 8 Zeichen sein!");
+        }
+
+        int i = 0;
+        while(i < pw.length() && !Character.isDigit(pw.toCharArray()[i])){
+            i++;
+        }
+
+        if(i >= pw.length()){
+            throw new ThatsAppException("Passwort muss mid. eine Ziffer enthalten!");
+        }
+        i = 0;
+
+        while (i < pw.length() && !Character.isUpperCase(pw.toCharArray()[i])){
+            i++;
+        }
+
+        if(i >= pw.length()){
+            throw new ThatsAppException("Passwort muss Großbuchstaben enthalten!");
+        }
+        i = 0;
+
+        while(i < pw.length() && !Character.isLowerCase(pw.toCharArray()[i])){
+            i++;
+        }
+
+        if(i >= pw.length())
+            throw new ThatsAppException("Passwort muss Kleinbuchstaben enthalten!");
+
+        setPasswordHash(hashPassword(pw));
     }
 
     public String getEmail() {
@@ -141,12 +186,28 @@ public class User implements Serializable {
         return null;
     }
 
+    public static String hashPassword (String planePassword) throws ThatsAppException{
+        final byte[] salt = " ".getBytes(StandardCharsets.UTF_8);
+        final int iterations = 10000;
+        final int keyLength = 128;
+
+        try {
+            KeySpec spec = new PBEKeySpec(planePassword.toCharArray(), salt, iterations, keyLength);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] hash = factory.generateSecret(spec).getEncoded();
+
+            return Arrays.toString(hash);
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException ex){
+            throw new ThatsAppException(ex.getMessage());
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return name.equals(user.name);
+        return Objects.equals(name, user.name);
     }
 
     @Override

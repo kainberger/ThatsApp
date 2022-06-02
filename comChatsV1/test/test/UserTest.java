@@ -6,6 +6,7 @@ import muc.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -125,5 +126,42 @@ public class UserTest {
         user.addChat(chat);
 
         assertThrows(ThatsAppException.class, () -> user.removeChat(null), "Chat ist null!");
+    }
+
+    @Test
+    public void setPassword() throws ThatsAppException {
+        user.setPassword("Admin12345");
+        assertEquals(User.hashPassword("Admin12345"), user.getPasswordHash());
+    }
+
+    @Test
+    public void setPassword2() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setPassword("admin"), "Passwort muss länger als 8 Zeichen sein!");
+    }
+
+    @Test
+    public void setPassword3() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setPassword("adminadmin123"), "Passwort muss Großbuchstaben enthalten!");
+    }
+
+    @Test
+    public void setPassword4() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setPassword("Adminadmin"), "Passwort muss mid. eine Ziffer enthalten!");
+    }
+
+    @Test
+    public void setPassword5() throws ThatsAppException {
+        assertThrows(ThatsAppException.class, () -> user.setPassword("ADMINADMIN"), "Passwort muss Kleinbuchstaben enthalten!");
+    }
+
+    @Test
+    public void setPassword6() throws ThatsAppException {
+        user.setPassword("Adminadmin123");
+    }
+
+    @Test
+    public void setPasswordHash() throws ThatsAppException {
+        user.setPasswordHash(User.hashPassword("Admin12345"));
+        assertEquals(User.hashPassword("Admin12345"), user.getPasswordHash());
     }
 }

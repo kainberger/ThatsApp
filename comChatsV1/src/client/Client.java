@@ -27,16 +27,46 @@ public class Client {
             clientSocket = new Socket("127.0.0.1", Server.PORT);
             out = new ObjectOutputStream(clientSocket.getOutputStream());
 
+            User user;
 
             System.out.println("Connected to Server");
 
+            //Login or Register
 
-            System.out.print("User: ");
-            User user = new User(sc.next());
-            //Login
+            System.out.println("Login[1] or Register[2]?");
+            int choice = sc.nextInt();
+
+            if(choice == 2) {
+
+                //Register
+                System.out.println("Registration!");
+                System.out.print("Username: ");
+                String userName = sc.next();
+                System.out.println("Password: ");
+                String passwd = sc.next();
+                System.out.println("Email: ");
+                String email = sc.next();
+
+                String registerMsg = userName + ";" + passwd + ";" + email;
+
+                 user = new User(userName);
 
 
-            new ClientSenderThread(new TextMessage("", null, user, Type.REGISTRATION), out).start();
+                new ClientSenderThread(new TextMessage(registerMsg, null, user, Type.REGISTRATION), out).start();
+            }
+            else {
+                System.out.println("Login!");
+                System.out.println("Username: ");
+                String userName = sc.next();
+                System.out.println("Password:");
+                String passwd = sc.next();
+
+                 user = new User(userName);
+
+                String loginMsg = userName + ";" +passwd;
+                new ClientSenderThread(new TextMessage(loginMsg,null, user, Type.LOGIN),out).start();
+            }
+
 
             new ClientReceiverThread(clientSocket).start();
             System.out.print("Target: ");

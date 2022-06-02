@@ -1,5 +1,6 @@
 package server;
 
+import muc.ThatsAppException;
 import muc.User;
 
 import java.io.IOException;
@@ -14,14 +15,27 @@ import java.util.*;
 
 
 public class Server {
-    public final static int PORT = 4999;
 
+    public static User SRVUser;
+
+
+    static {
+        try {
+            SRVUser = new User("SERVER");
+        } catch (ThatsAppException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public final static int PORT = 4999;
     public static HashMap<User, Socket> connectedUsers = new HashMap<>();
     public static HashMap<Socket, ObjectOutputStream> outputstreams = new HashMap<>();
-    public static List<Socket> clients = new LinkedList<>();
+
 
 
     public static void main(String[] args) {
+
+        UserCatalog.getInstance().restore();
 
         ServerSocket serverSocket;
 
@@ -31,6 +45,7 @@ public class Server {
 
         try {
             serverSocket = new ServerSocket(PORT);
+
 
             System.out.println("Server runnning on " + PORT);
 
@@ -45,17 +60,14 @@ public class Server {
 
                 Socket clientSocket = serverSocket.accept();
 
-                clients.add(clientSocket);
+
                 outputstreams.put(clientSocket, new ObjectOutputStream(clientSocket.getOutputStream()));
                 System.out.println("Connection accepted!");
 
 
                 new ReceiverThread(clientSocket).start();
 
-
-
-
-                 /*
+                /*
 
 
                 Thread sender = new Thread(new Runnable() {

@@ -89,6 +89,11 @@ public class ReceiverThread extends Thread {
             }
         } catch (ThatsAppException e) {
             System.out.println("User Registration: " + e.getMessage());
+            try {
+                sendResponseMsg(e.getMessage());
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
@@ -129,7 +134,7 @@ public class ReceiverThread extends Thread {
         passwordHash = userString.split(";", 3)[1];
         email = userString.split(";", 3)[2];
 
-        newUser = new User(name, passwordHash, email);
+        newUser = new User(name, passwordHash, email,false);
 
         if (!isRegistered(newUser.getName())) {
             UserCatalog.getInstance().addUser(newUser);
@@ -158,7 +163,7 @@ public class ReceiverThread extends Thread {
         new SenderThread(successMsg, Collections.singletonList(this.clientSocket)).start();
     }
 
-    private void loginUser(String login) throws IOException {
+    private void loginUser(String login) throws IOException, ThatsAppException {
         String userName;
         String passwd;
 
@@ -168,7 +173,7 @@ public class ReceiverThread extends Thread {
 
         if (isRegistered(userName)) {
             User user = UserCatalog.getInstance().getUserbyName(userName);
-            if (Objects.equals(user.getName(), userName) && Objects.equals(user.getPasswordHash(), passwd)) {
+            if (Objects.equals(user.getName(), userName) && Objects.equals(user.getPasswordHash(), User.hashPassword(passwd))) {
                 Server.connectedUsers.put(user, clientSocket);
 
                 System.out.println("Successfully Logged In!");

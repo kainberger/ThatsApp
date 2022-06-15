@@ -7,6 +7,7 @@
 - [x] Send/Receive Msg
 - [x] Password hashing
 - [x] Login View
+- [ ] Merge undelivered Msg to current version
 - [ ] Registration View 
 - [ ] Chat View 
 - [ ] Merge Views and Models 

@@ -8,9 +8,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="567.0" prefWidth="902.0" style="-fx-background-color: #2A363F;" stylesheets="@Login.css"
+            prefHeight="567.0" prefWidth="902.0" style="-fx-background-color: #2A363F;" stylesheets="@Register.css"
             xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/"
-            fx:controller="layout.login.viewController.LoginC">
+            fx:controller="layout.register.viewController.RegisterC">
     <children>
         <Pane prefHeight="567.0" prefWidth="376.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -31,7 +31,7 @@
               strokeWidth="2.0"/>
         <VBox alignment="CENTER" layoutX="443.0" layoutY="8.0" prefHeight="552.0" prefWidth="422.0" spacing="10.0">
             <children>
-                <Label text="Sign In" textAlignment="CENTER" textFill="#fbfcfc">
+                <Label text="Sign Up" textAlignment="CENTER" textFill="#fbfcfc">
                     <font>
                         <Font name="System Bold" size="54.0"/>
                     </font>
@@ -54,8 +54,8 @@
                             </font>
                         </Label>
                         <PasswordField/>
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#openChat" prefHeight="60.0"
-                                prefWidth="382.0" text="Sign In" VBox.vgrow="ALWAYS">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="60.0"
+                                prefWidth="382.0" text="Sign Up" VBox.vgrow="ALWAYS">
                             <VBox.margin>
                                 <Insets top="20.0"/>
                             </VBox.margin>
@@ -65,7 +65,7 @@
                         </Button>
                     </children>
                 </VBox>
-                <Label onMouseClicked="#openRegister" styleClass="register"
+                <Label styleClass="register"
                        text="Don't have an account yet? Click here!">
                     <VBox.margin>
                         <Insets top="20.0"/>

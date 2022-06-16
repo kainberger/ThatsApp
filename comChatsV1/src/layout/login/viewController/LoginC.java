@@ -1,14 +1,15 @@
 package layout.login.viewController;
 
-import javafx.scene.layout.AnchorPane;
-import layout.chat.viewController.ChatC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import layout.chat.viewController.ChatC;
+import layout.register.viewController.RegisterC;
 
 import java.io.IOException;
 
@@ -33,7 +34,7 @@ public class LoginC {
 
         // View anzeigen
         Scene scene = new Scene(parent);
-        stage.setTitle("Personenwartung");
+        stage.setTitle("ThatsApp");
         stage.setScene(scene);
         stage.show();
     }
@@ -42,10 +43,21 @@ public class LoginC {
 
     }
 
+
+    //Chat- und Registrierfenster
     @FXML
-    private void showChat(ActionEvent event) {
+    private void openChat(ActionEvent event) {
         try {
             ChatC.show((Stage) root.getScene().getWindow());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openRegister(ActionEvent event) {
+        try {
+            RegisterC.show((Stage) root.getScene().getWindow());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

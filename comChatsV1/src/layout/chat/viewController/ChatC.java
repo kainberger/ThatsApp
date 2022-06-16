@@ -25,7 +25,7 @@ public class ChatC {
     private Button btUser;
 
     @FXML
-    private ListView<?> lvFriends;
+    private ListView<HBox> lvFriends;
 
     @FXML
     private ScrollPane spChat;
@@ -51,7 +51,7 @@ public class ChatC {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Chat");
+            stage.setTitle("ThatsApp");
             stage.initOwner(owner);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();

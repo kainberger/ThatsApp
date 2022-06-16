@@ -2,17 +2,17 @@
     -fx-text-box-border: #FFFFFF;
 }
 
-.button {
+.chatButton {
     -fx-background-color: #6ED9A0;
     -fx-border-radius: 4px;
     -fx-text-fill: #fbfcfc;
 }
 
-.button:hover {
+.chatButton:hover {
     -fx-background-color: #59b383;
 }
 
-.button:pressed {
+.chatButton:pressed {
     -fx-background-color: #50a176;
 }
 
@@ -28,6 +28,7 @@
 .register {
     -fx-text-fill: #fbfcfc;
     -fx-font-size: 13px;
+    -fx-background-color: transparent;
 }
 
 .register:hover {

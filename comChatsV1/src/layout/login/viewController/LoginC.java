@@ -18,10 +18,10 @@ public class LoginC {
     private AnchorPane root;
 
     @FXML
-    private TextField tfUsername;
+    private TextField username;
 
     @FXML
-    private TextField tfPassword;
+    private TextField password;
 
     public static void show(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(LoginC.class.getResource("LoginV.fxml"));

@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import layout.addFriend.viewController.AddFriendC;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -118,6 +119,15 @@ public class ChatC {
     @FXML
     private void logout(ActionEvent event) {
         stage.close();
+    }
+
+    @FXML
+    private void addFriend(ActionEvent event) {
+        try {
+            AddFriendC.show((Stage) root.getScene().getWindow());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
 

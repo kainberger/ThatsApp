@@ -1,4 +1,4 @@
-package layout.addFriend.viewController;
+package layout.addFriend;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

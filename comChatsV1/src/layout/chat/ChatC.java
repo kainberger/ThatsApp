@@ -1,6 +1,5 @@
-package layout.chat.viewController;
+package layout.chat;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import layout.addFriend.viewController.AddFriendC;
+import layout.addFriend.AddFriendC;
+import layout.addFriend.Friend;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,7 +26,7 @@ public class ChatC {
     private Button btUser;
 
     @FXML
-    private ListView<HBox> lvFriends;
+    private ListView<Friend> lvFriends;
 
     @FXML
     private ScrollPane spChat;

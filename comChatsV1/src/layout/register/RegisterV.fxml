@@ -12,13 +12,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="902.0" style="-fx-background-color: #2A363F;" stylesheets="@Register.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.register.viewController.RegisterC">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="902.0" style="-fx-background-color: #2A363F;" stylesheets="@Register.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.register.RegisterC">
     <children>
         <Pane prefHeight="567.0" prefWidth="376.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../pictures/fingerpoint.png" />
+                        <Image url="@../../../pictures/fingerpoint.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="131.0" layoutY="243.0" text="ThatsApp" textFill="#fbfcfc">

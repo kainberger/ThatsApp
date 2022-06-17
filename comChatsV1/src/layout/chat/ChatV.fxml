@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <SplitPane fx:id="root" dividerPositions="0.264" prefHeight="850.0" prefWidth="1028.0"
            style="-fx-background-color: #2A363F;" stylesheets="@Chat.css" xmlns="http://javafx.com/javafx/8"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.chat.viewController.ChatC">
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.chat.ChatC">
     <items>
         <VBox alignment="CENTER" SplitPane.resizableWithParent="false">
             <children>
@@ -65,7 +65,7 @@
                             <graphic>
                                 <ImageView fitHeight="41.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../pictures/send.png"/>
+                                        <Image url="@../../../pictures/send.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>

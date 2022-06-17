@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
@@ -11,32 +7,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="902.0" style="-fx-background-color: #2A363F;" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.login.viewController.LoginC">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="567.0" prefWidth="902.0" style="-fx-background-color: #2A363F;" stylesheets="@Login.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.login.LoginC">
     <children>
         <Pane prefHeight="567.0" prefWidth="376.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="208.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
-                        <Image url="@../../../../pictures/fingerpoint.png" />
+                        <Image url="@../../../pictures/fingerpoint.png"/>
                     </image>
                 </ImageView>
                 <Label layoutX="131.0" layoutY="243.0" text="ThatsApp" textFill="#fbfcfc">
                     <font>
-                        <Font size="55.0" />
+                        <Font size="55.0"/>
                     </font>
                 </Label>
             </children>
         </Pane>
-        <Line endX="-86.0" endY="345.0" layoutX="484.0" layoutY="196.0" startX="-86.0" startY="-172.0" stroke="#465058" strokeWidth="2.0" />
+        <Line endX="-86.0" endY="345.0" layoutX="484.0" layoutY="196.0" startX="-86.0" startY="-172.0" stroke="#465058"
+              strokeWidth="2.0"/>
         <VBox alignment="CENTER" layoutX="443.0" layoutY="8.0" prefHeight="552.0" prefWidth="422.0" spacing="10.0">
             <children>
                 <Label text="Sign In" textAlignment="CENTER" textFill="#fbfcfc">
                     <font>
-                        <Font name="System Bold" size="54.0" />
+                        <Font name="System Bold" size="54.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="10.0"/>
                     </VBox.margin>
                 </Label>
 
@@ -44,34 +43,35 @@
                     <children>
                         <Label text="Username:" textFill="#fbfcfc">
                             <font>
-                                <Font size="38.0" />
+                                <Font size="38.0"/>
                             </font>
                         </Label>
-                        <TextField fx:id="username" />
+                        <TextField fx:id="username"/>
                         <Label text="Password:" textFill="#fbfcfc">
                             <font>
-                                <Font size="38.0" />
+                                <Font size="38.0"/>
                             </font>
                         </Label>
-                        <PasswordField fx:id="password" />
-                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#openChat" prefHeight="60.0" prefWidth="382.0" styleClass="chatButton" text="Sign In" VBox.vgrow="ALWAYS">
+                        <PasswordField fx:id="password"/>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="60.0"
+                                prefWidth="382.0" styleClass="chatButton" text="Sign In" VBox.vgrow="ALWAYS">
                             <VBox.margin>
-                                <Insets top="20.0" />
+                                <Insets top="20.0"/>
                             </VBox.margin>
                             <font>
-                                <Font name="System Bold" size="27.0" />
+                                <Font name="System Bold" size="27.0"/>
                             </font>
                         </Button>
                     </children>
                 </VBox>
                 <Button onAction="#openRegister" styleClass="register" text="Don't have an account yet? Click here!">
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="20.0"/>
                     </VBox.margin>
                 </Button>
             </children>
             <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
             </padding>
         </VBox>
     </children>

@@ -1,4 +1,4 @@
-package layout.login.viewController;
+package layout.login;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import layout.chat.viewController.ChatC;
-import layout.register.viewController.RegisterC;
+import layout.chat.ChatC;
+import layout.register.RegisterC;
 
 import java.io.IOException;
 
@@ -43,10 +43,13 @@ public class LoginC {
 
     }
 
+    @FXML
+    private void login(ActionEvent actionEvent) {
+        openChat();
+    }
 
     //Chat- und Registrierfenster
-    @FXML
-    private void openChat(ActionEvent event) {
+    private void openChat() {
         try {
             ChatC.show((Stage) root.getScene().getWindow());
         } catch (Exception ex) {

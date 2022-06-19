@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import layout.chat.ChatC;
 
 import java.io.IOException;
 
@@ -16,6 +17,8 @@ public class AddFriendC {
 
     @FXML
     private TextField name;
+
+    private Friend model;
 
     public static void show(Stage owner) {
         try {
@@ -37,10 +40,16 @@ public class AddFriendC {
         }
     }
 
+    /*
     @FXML
-    void add(ActionEvent event) {
-
+    private void add(ActionEvent event) {
+        if (!name.getText().isEmpty()) {
+            model = new Friend(name.getText());
+            ChatC.addFriend(model);
+        }
 
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
+
+     */
 }

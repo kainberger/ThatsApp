@@ -56,3 +56,16 @@
 .menu-item:pressed {
     -fx-background-color: #004C65;
 }
+
+.list-cell {
+    -fx-alignment: center;
+    -fx-background-color: #2A363F;
+    -fx-text-fill: #fbfcfc;
+    -fx-border-color: #465058;
+    -fx-border-width: 0 0 1pt 0;
+    -fx-font-size: 15pt;
+}
+
+.list-cell:pressed {
+    -fx-background-color: #004C65;
+}

@@ -13,17 +13,18 @@
     <items>
         <VBox alignment="CENTER" SplitPane.resizableWithParent="false">
             <children>
-                <HBox>
-                    <children>
-                        <Button fx:id="btUser" mnemonicParsing="false" prefHeight="65.0" prefWidth="272.0"
-                                style="-fx-background-color: transparent;" text="Insert Username" textFill="#fbfcfc"
-                                HBox.hgrow="ALWAYS">
-                            <font>
-                                <Font size="24.0"/>
-                            </font>
-                        </Button>
-                    </children>
-                </HBox>
+                <MenuButton alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="65.0"
+                            prefWidth="272.0" style="-fx-background-color: transparent;" text="Insert Username"
+                            textFill="#fbfcfc" VBox.vgrow="ALWAYS">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openFriendScene" text="Add Friend"/>
+                        <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout"/>
+                    </items>
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </MenuButton>
+                <HBox/>
                 <Line endX="267.0" startX="66.5" stroke="#465058" strokeWidth="2.0"/>
                 <ListView fx:id="lvFriends" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2A363F;"
                           VBox.vgrow="ALWAYS">

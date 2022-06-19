@@ -1,5 +1,8 @@
 package layout.chat;
 
+import com.sun.deploy.net.MessageHeader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +29,7 @@ public class ChatC {
     private Button btUser;
 
     @FXML
-    private ListView<Friend> lvFriends;
+    private ListView<String> lvFriends;
 
     @FXML
     private ScrollPane spChat;
@@ -36,6 +39,8 @@ public class ChatC {
 
     @FXML
     private TextField tfMessage;
+
+    private ObservableList<String> olFriends = FXCollections.observableArrayList("asdf", "asdf2", "asdf3");
 
     //Stage global, um leichter das Fenster schließen zu können.
     // Mit MenuItem ist es schwer, das Stage zu bekommen.
@@ -63,6 +68,8 @@ public class ChatC {
 
     @FXML
     private void initialize() {
+
+        lvFriends.setItems(olFriends);
         //Auto-scroll nach unten
         spChat.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -122,9 +129,9 @@ public class ChatC {
     }
 
     @FXML
-    private void addFriend(ActionEvent event) {
+    private void openFriendScene(ActionEvent event) {
         try {
-            AddFriendC.show((Stage) root.getScene().getWindow());
+            //AddFriendC.show((Stage) root.getScene().getWindow());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

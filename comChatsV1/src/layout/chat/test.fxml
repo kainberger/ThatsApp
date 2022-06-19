@@ -19,7 +19,7 @@
             <children>
                 <MenuButton alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="65.0" prefWidth="272.0" style="-fx-background-color: transparent;" text="Insert Username" textFill="#fbfcfc" VBox.vgrow="ALWAYS">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addFriend" text="Add Friend" />
+                        <MenuItem mnemonicParsing="false" onAction="#openFriendScene" text="Add Friend" />
                         <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" />
                     </items>
                     <font>

@@ -22,6 +22,7 @@ public class ClientSenderThread extends Thread {
         try {
             out.writeObject(msg);
             out.flush();
+            System.out.println("Sent Message to Server");
 
         } catch (IOException e) {
             e.printStackTrace();

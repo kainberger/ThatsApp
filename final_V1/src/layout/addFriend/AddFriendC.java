@@ -1,5 +1,6 @@
 package layout.addFriend;
 
+import client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,8 +10,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import muc.Chat;
+import muc.ThatsAppException;
+import muc.User;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class AddFriendC {
 
@@ -38,7 +44,10 @@ public class AddFriendC {
     }
 
     @FXML
-    void add(ActionEvent event) {
+    void add(ActionEvent event) throws ThatsAppException {
+
+        Client.user.addChat(new Chat(Arrays.asList(Client.user,new User(name.getText()))));
+
 
 
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();

@@ -1,5 +1,7 @@
 package muc;
 
+import client.LocalCatalog;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.io.Serializable;
@@ -152,6 +154,7 @@ public class User implements Serializable {
         if(!chat.getUsers().contains(this)) {
             chat.addUser(this);
         }
+        LocalCatalog.getInstance().add(chat);
     }
 
     public void removeChat(Chat chat) throws ThatsAppException {
@@ -217,10 +220,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", passwordHash='" + passwordHash + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return name ;
     }
 }

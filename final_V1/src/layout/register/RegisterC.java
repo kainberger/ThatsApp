@@ -6,22 +6,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import muc.User;
-import server.Server;
-import server.UserCatalog;
+import layout.login.LoginC;
 
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 public class RegisterC {
+    public static boolean err;
+    public static String errorMsg;
     @FXML
     private PasswordField tfPassword;
 
@@ -43,6 +42,8 @@ public class RegisterC {
 
             Stage stage = new Stage();
 
+            err = false;
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("ThatsApp");
@@ -61,15 +62,28 @@ public class RegisterC {
             String username = tfUsername.getText();
             String password = tfPassword.getText();
 
-            User user = new User(username, password, email, false); //TODO: later ==> pw as hash
+       //     User user = new User(username, password, email, false); //TODO: later ==> pw as hash
 
-            if(!UserCatalog.getInstance().addUser(user)) {
+            Client.register(username,password,email);
+
+         //   if(!UserCatalog.getInstance().addUser(user)) {
                 //display Error
+          //  }
+
+            if (err) {
+                ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+            }
+            else {
+                tfEmail.clear();
+                tfPassword.clear();
+                tfUsername.clear();
+                Alert alert = new Alert(Alert.AlertType.WARNING, errorMsg);
+                alert.show();
             }
 
             //Client.register(username, password, email);
 
-            ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }

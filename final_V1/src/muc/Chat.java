@@ -77,4 +77,10 @@ public class Chat implements Serializable {
         }
         return true;
     }
+
+
+    @Override
+    public String toString() {
+        return "Chat with " +users.toString();
+    }
 }

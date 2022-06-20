@@ -84,9 +84,7 @@ public class ReceiverThread extends Thread {
 
 
             Server.outputstreams.remove(clientSocket);
-            if (user != null) {
-                Server.connectedUsers.remove(user);
-            }
+            logoutUser();
         } catch (ThatsAppException e) {
             System.out.println("User Registration: " + e.getMessage());
             try {
@@ -149,7 +147,7 @@ public class ReceiverThread extends Thread {
             System.out.println("\nconnected Users: " + Server.connectedUsers);
 
             //send success msg
-            sendResponseMsg("Successfully registered!!!");
+          //  sendResponseMsg("Successfully registered!!!");
 
         } else {
             //Error Response Msg
@@ -159,8 +157,8 @@ public class ReceiverThread extends Thread {
     }
 
     private void sendResponseMsg(String msg) throws IOException {
-        TextMessage successMsg = new TextMessage(msg, null, Server.SRVUser, Type.RESPONSE);
-        new SenderThread(successMsg, Collections.singletonList(this.clientSocket)).start();
+        TextMessage errorMsg = new TextMessage(msg, null, Server.SRVUser, Type.ERROR);
+        new SenderThread(errorMsg, Collections.singletonList(this.clientSocket)).start();
     }
 
     private void loginUser(String login) throws IOException, ThatsAppException {
@@ -172,7 +170,7 @@ public class ReceiverThread extends Thread {
 
 
         if (isRegistered(userName)) {
-            User user = UserCatalog.getInstance().getUserbyName(userName);
+             user = UserCatalog.getInstance().getUserbyName(userName);
             if (Objects.equals(user.getName(), userName) && Objects.equals(user.getPasswordHash(), User.hashPassword(passwd))) {
                 Server.connectedUsers.put(user, clientSocket);
 
@@ -180,7 +178,7 @@ public class ReceiverThread extends Thread {
                 System.out.println("Connected User: " + Server.connectedUsers);
 
                 //send success Msg
-                sendResponseMsg("Successfully logged in!!!");
+              //  sendResponseMsg("Successfully logged in!!!");
             } else {
                 //send error response Msg
                 sendResponseMsg("Login failed");
@@ -197,6 +195,7 @@ public class ReceiverThread extends Thread {
 
         if (user != null) {
             Server.connectedUsers.remove(user);
+
         }
 
     }

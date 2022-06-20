@@ -1,16 +1,16 @@
 package client;
 
 import muc.*;
-import server.Server;
+import server.ReceiverThread;
+import server.SenderThread;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Scanner;
 
 //TODO: send messages via Client.sendMsg();
 //TODO: send register message to Server when registering
@@ -19,17 +19,21 @@ public class Client {
     public static Socket clientSocket; // socket used by client to send and recieve data from server
     public static ObjectInputStream in;   // object to read data from socket
     public static ObjectOutputStream out;     // object to write data into socket
-    public static final Scanner sc = new Scanner(System.in); // object to read data from user's keybord
     private static String username;
-    private static User user, target;
+    private static ClientReceiverThread crt;
+    public static User user;
     private static Chat chat;
 
-    public static void main(String[] args) {
+
+    public static void connect() {
         try {
-            clientSocket = new Socket("127.0.0.1", Server.PORT);
+            clientSocket = new Socket("127.0.0.1", 4777);
             out = new ObjectOutputStream(clientSocket.getOutputStream());
 
             System.out.println("Connected to Server");
+
+            crt = new ClientReceiverThread(Client.clientSocket);
+            crt.start();
 
             //Login or Register
 
@@ -67,7 +71,7 @@ public class Client {
                 new ClientSenderThread(new TextMessage(loginMsg,null, user, Type.LOGIN),out).start();
             }*/
 
-            String userName = args[0];
+            /*String userName = args[0];
             String passwd = args[1];
 
             user = new User(userName);
@@ -75,7 +79,7 @@ public class Client {
             String loginMsg = userName + ";" +passwd;
             new ClientSenderThread(new TextMessage(loginMsg,null, user, Type.LOGIN),out).start();
 
-            new ClientReceiverThread(clientSocket).start();
+            new ClientReceiverThread(clientSocket).start();*/
 
             /*Thread sender = new Thread(new Runnable() {
                 String msg;
@@ -127,21 +131,29 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-        } catch (IOException | ThatsAppException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /*public static void register(String username, String password, String email) throws ThatsAppException, IOException {
+
+    public static void login(String userName, String passwd) throws IOException, ThatsAppException {
+        user = new User(userName);
+        String loginMsg = userName + ";" + passwd;
+        new ClientSenderThread(new TextMessage(loginMsg, null, user, Type.LOGIN), out).start();
+
+    }
+
+    public static void register(String username, String password, String email) throws ThatsAppException, IOException {
         String registerMsg = username + ";" + password + ";" + email; //TODO: pw as hash
 
-        User user = new User(username);
+         user = new User(username);
 
 
         new ClientSenderThread(new TextMessage(registerMsg, null, user, Type.REGISTRATION), out).start();
     }
 
-     */
+
 
     /*public static void setTarget(User target) {
         Client.target = target;
@@ -150,9 +162,24 @@ public class Client {
 
      */
 
-   /* public static void sendMessage(String msg) throws IOException {
-        new ClientSenderThread(new TextMessage(msg, chat, user, Type.STANDARD), out).start();
+    /* public static void sendMessage(String msg) throws IOException {
+         new ClientSenderThread(new TextMessage(msg, chat, user, Type.STANDARD), out).start();
+     }
+
+     */
+    public static void stop() {
+        try {
+                         //TODO: Fix exception
+            clientSocket.close();
+
+        } catch (IOException e) {
+            System.out.println("Everythin closed!");
+        }
+
+
     }
 
-    */
+    public static void sendMsg(String msg, Chat chat, Type type) throws IOException {
+        new ClientSenderThread(new TextMessage(msg,chat,user,type),out).start();
+    }
 }

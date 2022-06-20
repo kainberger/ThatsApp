@@ -1,7 +1,13 @@
 package client;
 
+
+import javafx.application.Platform;
+import layout.chat.ChatC;
+import layout.login.LoginC;
+import layout.register.RegisterC;
 import muc.Message;
 import muc.TextMessage;
+import muc.Type;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,9 +19,11 @@ public class ClientReceiverThread extends Thread {
     private ObjectInputStream in;
     private final Socket clientSocket;
 
+
     public ClientReceiverThread(Socket clientSocket) throws IOException {
        // this.in = new ObjectInputStream(clientSocket.getInputStream());
         this.clientSocket = clientSocket;
+        this.in = new ObjectInputStream(clientSocket.getInputStream());
     }
 
     @Override
@@ -24,33 +32,41 @@ public class ClientReceiverThread extends Thread {
 
             TextMessage msg;
 
-            if (clientSocket.getInputStream().available() >= 0){
-                in = new ObjectInputStream(clientSocket.getInputStream());
-            }
 
-            while (in.available() != -1) {      //While connected
+            while (clientSocket.isConnected()) {      //While connected
 
-
-                if (in.available() >= 0) {
 
                     Object o = in.readObject();
 
                     if (o instanceof TextMessage) {
                         msg = (TextMessage) o;
 
+                        if (msg.getType() == Type.ERROR){
+                            RegisterC.err = true;
+                            RegisterC.errorMsg = msg.getMsg();
+                            LoginC.err = true;
+                            LoginC.errorMsg = msg.getMsg();
+                        }
+
+                        if (msg.getType() == Type.STANDARD){
+                            Platform.runLater(new ClientRunOnFXThread(msg));
+                        }
+
+
                         // if(msg.getChat().equals(chat))
                         System.out.println("Message from: " + msg.getSrc().getName() + ": " + msg.getMsg());
                     }
                 }
-            }
 
-            System.out.println("Server out of service");
-            in.close();
-            clientSocket.close();
+
+
+
+
         }catch (ConnectException ce){
-
+            Client.stop();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Everthing Stopped!");
+
         }
 
     }

@@ -54,7 +54,7 @@
                         </Label>
                         <PasswordField fx:id="password"/>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="60.0"
-                                prefWidth="382.0" styleClass="chatButton" text="Sign In" VBox.vgrow="ALWAYS">
+                                prefWidth="382.0" styleClass="chatButton" text="Sign In" VBox.vgrow="ALWAYS" defaultButton="true">
                             <VBox.margin>
                                 <Insets top="20.0"/>
                             </VBox.margin>

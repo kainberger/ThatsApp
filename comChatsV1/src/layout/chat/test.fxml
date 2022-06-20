@@ -15,7 +15,7 @@
 
 <SplitPane fx:id="root" dividerPositions="0.264" prefHeight="850.0" prefWidth="1028.0" style="-fx-background-color: #2A363F;" stylesheets="@Chat.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.chat.ChatC">
     <items>
-        <VBox alignment="CENTER" SplitPane.resizableWithParent="false">
+        <VBox alignment="CENTER" maxWidth="271.0" minWidth="271.0" SplitPane.resizableWithParent="false">
             <children>
                 <MenuButton alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT" prefHeight="65.0" prefWidth="272.0" style="-fx-background-color: transparent;" text="Insert Username" textFill="#fbfcfc" VBox.vgrow="ALWAYS">
                     <items>
@@ -36,7 +36,7 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="65.0" prefWidth="632.0" styleClass="chat-friend-Hbox">
                     <children>
-                        <Label text="INSERT FRIEND'S NAME" textFill="#fbfcfc">
+                        <Label fx:id="chatName" text="Select a friend first" textFill="#fbfcfc">
                             <font>
                                 <Font size="28.0" />
                             </font>

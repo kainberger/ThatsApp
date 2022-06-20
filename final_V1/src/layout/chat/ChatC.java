@@ -85,8 +85,7 @@ public class ChatC {
     }
 
     @FXML
-    private void initialize()  {
-
+    private void initialize() {
         //Auto-scroll nach unten
         spChat.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {

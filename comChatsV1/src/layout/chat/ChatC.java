@@ -90,6 +90,10 @@ public class ChatC {
         });
     }
 
+    /**
+     * Show Chat of a selected Friend/Chat in the list
+     * @param name
+     */
     private void setup(String name) {
         chatName.setText(name);
     }

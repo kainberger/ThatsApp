@@ -91,13 +91,17 @@ public class ChatC {
     }
 
     /**
-     * Show Chat of a selected Friend/Chat in the list
+     * Chat vom ausgewählten Freund/Chat anzeigen
      * @param name
      */
     private void setup(String name) {
         chatName.setText(name);
     }
 
+    /**
+     * Nachricht senden
+     * @param event
+     */
     @FXML
     private void sendMessage(ActionEvent event) {
         if (!tfMessage.getText().isEmpty() && !chatName.getText().equals("Select a friend first")) {
@@ -106,6 +110,10 @@ public class ChatC {
         }
     }
 
+    /**
+     * gesendete Nachricht am Bildschirm anzeigen lassen
+     * @param message
+     */
     private void showMessage(String message) {
         //Datum und Zeit
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -143,11 +151,10 @@ public class ChatC {
         vbChatBox.getChildren().add(hbox1);
     }
 
-    @FXML
-    private void logout(ActionEvent event) {
-        stage.close();
-    }
-
+    /**
+     * Scene ,für Freunde/Chats hinzufügen, öffen
+     * @param event
+     */
     @FXML
     private void openFriendScene(ActionEvent event) {
         try {
@@ -158,10 +165,22 @@ public class ChatC {
         }
     }
 
+    /**
+     * Add Friend/Chat to the List
+     */
     private void addToFriendList() {
         if (!olFriends.contains(addFriendC.getText()) && !addFriendC.getText().isEmpty()) {
             olFriends.add(addFriendC.getText());
         }
+    }
+
+    /**
+     * Ausloggen
+     * @param event
+     */
+    @FXML
+    private void logout(ActionEvent event) {
+        stage.close();
     }
 }
 

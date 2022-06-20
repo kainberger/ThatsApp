@@ -1,6 +1,7 @@
 package layout.chat;
 
-import com.sun.deploy.net.MessageHeader;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import layout.addFriend.AddFriendC;
-import layout.addFriend.Friend;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -24,9 +24,6 @@ import java.util.Date;
 public class ChatC {
     @FXML
     private SplitPane root;
-
-    @FXML
-    private Button btUser;
 
     @FXML
     private ListView<String> lvFriends;
@@ -40,7 +37,13 @@ public class ChatC {
     @FXML
     private TextField tfMessage;
 
-    private ObservableList<String> olFriends = FXCollections.observableArrayList("asdf", "asdf2", "asdf3");
+    @FXML
+    private Label chatName;
+
+    //Leichtere Kommunikation, um die Freunde hinzuzufügen
+    private AddFriendC addFriendC = new AddFriendC();
+
+    private ObservableList<String> olFriends = FXCollections.observableArrayList();
 
     //Stage global, um leichter das Fenster schließen zu können.
     // Mit MenuItem ist es schwer, das Stage zu bekommen.
@@ -68,19 +71,31 @@ public class ChatC {
 
     @FXML
     private void initialize() {
-
         lvFriends.setItems(olFriends);
+
         //Auto-scroll nach unten
         spChat.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 spChat.setVvalue(1.0);
             }
         });
+
+        lvFriends.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                String selected = lvFriends.getSelectionModel().getSelectedItem();
+                setup(selected);
+            }
+        });
+    }
+
+    private void setup(String name) {
+        chatName.setText(name);
     }
 
     @FXML
     private void sendMessage(ActionEvent event) {
-        if (!tfMessage.getText().isEmpty()) {
+        if (!tfMessage.getText().isEmpty() && !chatName.getText().equals("Select a friend first")) {
             showMessage(tfMessage.getText());
             tfMessage.setText("");
         }
@@ -131,9 +146,16 @@ public class ChatC {
     @FXML
     private void openFriendScene(ActionEvent event) {
         try {
-            //AddFriendC.show((Stage) root.getScene().getWindow());
+            addFriendC.show((Stage) root.getScene().getWindow());
+            addToFriendList();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void addToFriendList() {
+        if (!olFriends.contains(addFriendC.getText()) && !addFriendC.getText().isEmpty()) {
+            olFriends.add(addFriendC.getText());
         }
     }
 }

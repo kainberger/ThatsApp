@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import layout.addFriend.AddFriendC;
-import layout.addFriend.Friend;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

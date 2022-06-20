@@ -1,0 +1,58 @@
+.split-pane *.split-pane-divider {
+    -fx-padding: 0 0 0 0;
+}
+
+.msgWindow {
+    -fx-background-color: linear-gradient(to bottom, #465058, #f5f5f5);
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.chat-friend-Hbox {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.friend-msg {
+    -fx-background-radius: 10px;
+    -fx-background-color: #2A363F;
+    -fx-padding: 10px;
+    -fx-text-alignment: justify;
+    -fx-font-size: 13px;
+}
+
+.user-msg {
+    -fx-background-radius: 10px;
+    -fx-background-color: #155956;
+    -fx-padding: 10px;
+    -fx-text-alignment: justify;
+    -fx-font-size: 13px;
+}
+
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.menu-item .label {
+    -fx-font-size: 14pt;
+    -fx-text-fill: #fbfcfc;
+}
+
+.menu-item {
+    -fx-background-color: #2A363F;
+    -fx-padding: 10px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #3399B9;
+}
+
+.menu-item:pressed {
+    -fx-background-color: #004C65;
+}

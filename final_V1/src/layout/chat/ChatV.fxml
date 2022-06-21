@@ -11,7 +11,7 @@
            style="-fx-background-color: #2A363F;" stylesheets="@Chat.css" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.chat.ChatC">
     <items>
-        <VBox alignment="CENTER" SplitPane.resizableWithParent="false">
+        <VBox alignment="CENTER" maxWidth="271.0" minWidth="271.0" SplitPane.resizableWithParent="false">
             <children>
                 <MenuButton fx:id="btUser" alignment="CENTER" mnemonicParsing="false" popupSide="RIGHT"
                             prefHeight="65.0" prefWidth="272.0" style="-fx-background-color: transparent;"
@@ -35,7 +35,7 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="65.0" prefWidth="632.0" styleClass="chat-friend-Hbox">
                     <children>
-                        <Label text="Select a chat first!" fx:id="chatName" textFill="#fbfcfc">
+                        <Label fx:id="chatName" text="Select a chat first!" textFill="#fbfcfc">
                             <font>
                                 <Font size="28.0"/>
                             </font>

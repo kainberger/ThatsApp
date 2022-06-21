@@ -37,7 +37,7 @@ public class AddFriendC {
             stage.setTitle("ThatsApp");
             stage.initOwner(owner);
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.show();
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -18,16 +18,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import layout.addFriend.AddFriendC;
-import muc.Chat;
-import muc.Message;
-import muc.TextMessage;
-import muc.Type;
-
+import muc.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatC {
     @FXML
@@ -50,6 +47,8 @@ public class ChatC {
 
     @FXML
     private MenuButton btUser;
+
+    private boolean selected = false;
 
     //Stage global, um leichter das Fenster schließen zu können.
     // Mit MenuItem ist es schwer, das Stage zu bekommen.
@@ -101,27 +100,29 @@ public class ChatC {
         btUser.setText(Client.user.toString());
 
         //Chat auswählen
-        /*
         lvFriends.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Chat>() {
             @Override
             public void changed(ObservableValue<? extends Chat> observable, Chat oldValue, Chat newValue) {
-                chatName.setText(lvFriends.getSelectionModel().getSelectedItem().);
+                List<User> chat = lvFriends.getSelectionModel().getSelectedItem().getUsers();
+                chatName.setText(chat.get(0).getName() + ", " + chat.get(1).getName());
+                selected = true;
             }
         });
-         */
     }
 
     @FXML
     private void sendMessage(ActionEvent event) {
-        if (!tfMessage.getText().isEmpty()) {
-            showMessage(tfMessage.getText());
-            try {
-                Client.sendMsg(tfMessage.getText(), lvFriends.getSelectionModel().getSelectedItem(), Type.STANDARD);
-            } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-                alert.show();
+        if (selected) {     // Nur am Beginn
+            if (!tfMessage.getText().isEmpty()) {
+                showMessage(tfMessage.getText());
+                try {
+                    Client.sendMsg(tfMessage.getText(), lvFriends.getSelectionModel().getSelectedItem(), Type.STANDARD);
+                } catch (IOException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    alert.show();
+                }
+                tfMessage.setText("");
             }
-            tfMessage.setText("");
         }
     }
 
@@ -175,8 +176,6 @@ public class ChatC {
     }
 
     public void showIncomingMsg(Message incomingMsg) {
-
-
         TextMessage msg = (TextMessage) incomingMsg;
 
         LocalDateTime date = msg.getTimeStamp();

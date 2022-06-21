@@ -35,7 +35,7 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="65.0" prefWidth="632.0" styleClass="chat-friend-Hbox">
                     <children>
-                        <Label text="INSERT FRIEND'S NAME" fx:id="chatName" textFill="#fbfcfc">
+                        <Label text="Select a chat first!" fx:id="chatName" textFill="#fbfcfc">
                             <font>
                                 <Font size="28.0"/>
                             </font>

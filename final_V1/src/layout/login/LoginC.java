@@ -43,10 +43,6 @@ public class LoginC {
 
         LoginC loginC = loader.getController();
 
-        // View aufbauen, konfigurieren, Handler hinzufügen, ...
-        loginC.init();
-
-
         err = false;
         errorMsg = "";
         // View anzeigen
@@ -57,11 +53,6 @@ public class LoginC {
         LoginC.stage.show();
 
 
-
-    }
-
-
-    private void init() {
 
     }
 

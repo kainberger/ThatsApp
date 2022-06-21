@@ -34,9 +34,6 @@ public class ChatC {
     private SplitPane root;
 
     @FXML
-    private Button btUser;
-
-    @FXML
     private ListView<Chat> lvFriends;
 
     @FXML
@@ -50,6 +47,9 @@ public class ChatC {
 
     @FXML
     private Label chatName;
+
+    @FXML
+    private MenuButton btUser;
 
     //Stage global, um leichter das Fenster schließen zu können.
     // Mit MenuItem ist es schwer, das Stage zu bekommen.
@@ -65,7 +65,7 @@ public class ChatC {
 
     public static void show(Stage owner) {
         try {
-            FXMLLoader loader = new FXMLLoader(ChatC.class.getResource("test.fxml"));
+            FXMLLoader loader = new FXMLLoader(ChatC.class.getResource("ChatV.fxml"));
             Parent root = (Parent) loader.load();
 
             controller = (ChatC) loader.getController();
@@ -98,11 +98,17 @@ public class ChatC {
         ObservableList<Chat> olC = FXCollections.observableArrayList(helper);
         lvFriends.setItems(olC);
         lvFriends.refresh();
+        btUser.setText(Client.user.toString());
 
-
-
-
-        // btUser.setText(Client.user.toString());
+        //Chat auswählen
+        /*
+        lvFriends.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Chat>() {
+            @Override
+            public void changed(ObservableValue<? extends Chat> observable, Chat oldValue, Chat newValue) {
+                chatName.setText(lvFriends.getSelectionModel().getSelectedItem().);
+            }
+        });
+         */
     }
 
     @FXML

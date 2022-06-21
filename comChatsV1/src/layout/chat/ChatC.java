@@ -51,7 +51,7 @@ public class ChatC {
 
     public static void show(Stage owner) {
         try {
-            FXMLLoader loader = new FXMLLoader(ChatC.class.getResource("test.fxml"));
+            FXMLLoader loader = new FXMLLoader(ChatC.class.getResource("ChatV.fxml"));
             Parent root = (Parent) loader.load();
 
             ChatC chatC = (ChatC) loader.getController();

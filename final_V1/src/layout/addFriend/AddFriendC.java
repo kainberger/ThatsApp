@@ -45,10 +45,7 @@ public class AddFriendC {
 
     @FXML
     void add(ActionEvent event) throws ThatsAppException {
-
         Client.user.addChat(new Chat(Arrays.asList(Client.user,new User(name.getText()))));
-
-
 
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }

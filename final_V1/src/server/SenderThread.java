@@ -25,6 +25,7 @@ public class SenderThread extends Thread{
 
         //loop through all Sockets and send message
         for (Socket s : clients) {
+            System.out.println("there "+msg);
             if(s.isConnected() && s != Server.connectedUsers.get(msg.getSrc())){
                 try {
                     out = Server.outputstreams.get(s);

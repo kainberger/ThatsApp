@@ -1,5 +1,7 @@
 package server;
 
+import muc.Message;
+import muc.TextMessage;
 import muc.ThatsAppException;
 import muc.User;
 
@@ -33,6 +35,7 @@ public class Server {
     public static HashMap<User, Socket> connectedUsers = new HashMap<>();
     public static HashMap<Socket, ObjectOutputStream> outputstreams = new HashMap<>();
     private static File userFile;
+    public static List<TextMessage> undeliveredMsgs = new LinkedList<>();
 
 
 

@@ -1,6 +1,7 @@
 package layout.chat;
 
 import client.Client;
+import client.ClientSenderThread;
 import client.LocalCatalog;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -162,7 +163,7 @@ public class ChatC {
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        LocalCatalog.getInstance().persist();
+        Client.logout();
         stage.close();
         LoginC.show(new Stage());
     }

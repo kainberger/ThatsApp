@@ -38,6 +38,7 @@ public class ClientReceiverThread extends Thread {
 
                 if (o instanceof TextMessage) {
                     msg = (TextMessage) o;
+                    System.out.println("msg: "+msg);
 
                     switch (msg.getType()) {
 
@@ -72,6 +73,7 @@ public class ClientReceiverThread extends Thread {
                             break;
 
                         case STANDARD:
+
                             Platform.runLater(new ClientRunMsgOnFXThread(msg));
                             break;
                     }

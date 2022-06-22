@@ -15,6 +15,7 @@ public class ReceiverThread extends Thread {
     private final ObjectInputStream in;
 
     private User user = null;
+    private TextMessage msg;
 
     public ReceiverThread(Socket clientSocket) throws IOException {
         this.clientSocket = clientSocket;
@@ -23,7 +24,7 @@ public class ReceiverThread extends Thread {
 
     @Override
     public void run() {
-        TextMessage msg;
+
         try {
 
             while (clientSocket.isConnected()) {  //While connected
@@ -42,15 +43,19 @@ public class ReceiverThread extends Thread {
 
                         case REGISTRATION:
                             registerUser(msg.getMsg());     //register new User
+
                             break;
                         case LOGIN:
                             loginUser(msg.getMsg());    //Login User
+
                             break;
                         case LOGOUT:
                             logoutUser();
                             break;
                         case STANDARD:          //Send message
                             new SenderThread(msg, getSockets(msg.getChat())).start();
+                            //about undelivered msgs
+
 
                     }
 
@@ -93,6 +98,8 @@ public class ReceiverThread extends Thread {
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -110,6 +117,7 @@ public class ReceiverThread extends Thread {
                 sockets.add(Server.connectedUsers.get(u));
             } else {
                 //save to unsent messages
+                Server.undeliveredMsgs.add(msg);
             }
         }
 
@@ -123,7 +131,7 @@ public class ReceiverThread extends Thread {
     }
 
     //Register new User
-    private void registerUser(String userString) throws ThatsAppException, IOException {
+    private void registerUser(String userString) throws ThatsAppException, IOException, InterruptedException {
 
         User newUser;
         String name;
@@ -150,6 +158,7 @@ public class ReceiverThread extends Thread {
             //send success msg
 
             sendResponseMsg("Successfully registered!!!",Type.REGISTRATION);
+            deliverMsgs(user);
 
         } else {
             //Error Response Msg
@@ -163,7 +172,7 @@ public class ReceiverThread extends Thread {
         new SenderThread(errorMsg, Collections.singletonList(this.clientSocket)).start();
     }
 
-    private void loginUser(String login) throws IOException, ThatsAppException {
+    private void loginUser(String login) throws IOException, ThatsAppException, InterruptedException {
         String userName;
         String passwd;
 
@@ -182,6 +191,7 @@ public class ReceiverThread extends Thread {
                 //send success Msg
               //  sendResponseMsg("Successfully logged in!!!");
                 sendResponseMsg("Sucessfully Logged in!",Type.LOGIN);
+                deliverMsgs(user);
             } else {
                 //send error response Msg
                 sendResponseMsg("Login failed",Type.LOGIN_ERR);
@@ -203,6 +213,28 @@ public class ReceiverThread extends Thread {
 
         }
 
+    }
+
+    private void deliverMsgs(User u) throws IOException, InterruptedException {
+        //Thread.sleep(3000);
+        List<Socket> s = new LinkedList<>();
+        s.add(Server.connectedUsers.get(u));
+        List<TextMessage> msgs = new LinkedList<>();
+        for (TextMessage m:Server.undeliveredMsgs) {
+            if(m.getChat().getUsers().contains(u)) {
+                new SenderThread(m, getSockets(m.getChat()));
+                System.out.println("msg sent to "+u + "/"+m+"/"+m.getChat()+"/"+m.getType()+"/"+Server.connectedUsers.get(u));
+                //Server.undeliveredMsgs.remove(m); //concurrentModificationException ==> Liste verändert sich während sie andauernd gelesen wird
+                msgs.add(m);
+            }
+
+        }
+
+        for (TextMessage m : msgs) {
+            Server.undeliveredMsgs.remove(m);
+        }
+
+        System.out.println("---msgs---"+Server.undeliveredMsgs);
     }
 
 }

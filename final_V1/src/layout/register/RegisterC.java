@@ -59,7 +59,7 @@ public class RegisterC {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("ThatsApp");
-            stage.getIcons().add(new Image("././pictures/fingerpoint.png"));
+            stage.getIcons().add(new Image("pictures/fingerpoint.png"));
             stage.initOwner(owner);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.show();

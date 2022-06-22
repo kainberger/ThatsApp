@@ -77,7 +77,7 @@ public class ChatC {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("ThatsApp");
-            stage.getIcons().add(new Image("././pictures/fingerpoint.png"));
+            stage.getIcons().add(new Image("pictures/fingerpoint.png"));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -59,7 +59,7 @@ public class LoginC {
         Scene scene = new Scene(parent);
         LoginC.stage = stage;
         LoginC.stage.setTitle("ThatsApp | Login");
-        LoginC.stage.getIcons().add(new Image("././pictures/fingerpoint.png"));
+        LoginC.stage.getIcons().add(new Image("pictures/fingerpoint.png"));
         LoginC.stage.setScene(scene);
         LoginC.stage.show();
 

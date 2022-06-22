@@ -80,15 +80,16 @@ public class ReceiverThread extends Thread {
 
 
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Client Disconnected");  //if disconnected
 
+            System.err.println("Client Disconnected");  //if disconnected
+            logoutUser();
 
             Server.outputstreams.remove(clientSocket);
-            logoutUser();
+
         } catch (ThatsAppException e) {
             System.out.println("User Registration: " + e.getMessage());
             try {
-                sendResponseMsg(e.getMessage());
+                sendResponseMsg(e.getMessage(),Type.ERROR);
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -132,7 +133,7 @@ public class ReceiverThread extends Thread {
         passwordHash = userString.split(";", 3)[1];
         email = userString.split(";", 3)[2];
 
-        newUser = new User(name, passwordHash, email,false); //TODO: pw as hash
+        newUser = new User(name, passwordHash, email,true); //TODO: pw as hash
 
         if (!isRegistered(newUser.getName())) {
             UserCatalog.getInstance().addUser(newUser);
@@ -147,17 +148,18 @@ public class ReceiverThread extends Thread {
             System.out.println("\nconnected Users: " + Server.connectedUsers);
 
             //send success msg
-          //  sendResponseMsg("Successfully registered!!!");
+
+            sendResponseMsg("Successfully registered!!!",Type.REGISTRATION);
 
         } else {
             //Error Response Msg
-            sendResponseMsg("Registration failed! User already registered!");
+            sendResponseMsg("Registration failed! User already registered!",Type.REGISTER_ERR);
         }
 
     }
 
-    private void sendResponseMsg(String msg) throws IOException {
-        TextMessage errorMsg = new TextMessage(msg, null, Server.SRVUser, Type.ERROR);
+    private void sendResponseMsg(String msg, Type type) throws IOException {
+        TextMessage errorMsg = new TextMessage(msg, null, Server.SRVUser, type);
         new SenderThread(errorMsg, Collections.singletonList(this.clientSocket)).start();
     }
 
@@ -179,14 +181,15 @@ public class ReceiverThread extends Thread {
 
                 //send success Msg
               //  sendResponseMsg("Successfully logged in!!!");
+                sendResponseMsg("Sucessfully Logged in!",Type.LOGIN);
             } else {
                 //send error response Msg
-                sendResponseMsg("Login failed");
+                sendResponseMsg("Login failed",Type.LOGIN_ERR);
             }
 
         } else {
             // Send error response Msg
-            sendResponseMsg("Login failed!!! User not registered!!!");
+            sendResponseMsg("Login failed!!! User not registered!!!", Type.LOGIN_ERR);
         }
     }
 
@@ -195,6 +198,8 @@ public class ReceiverThread extends Thread {
 
         if (user != null) {
             Server.connectedUsers.remove(user);
+            System.out.println("Successfully logged out!");
+            System.out.println("Connected User: " + Server.connectedUsers);
 
         }
 

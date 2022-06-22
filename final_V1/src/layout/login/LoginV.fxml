@@ -13,11 +13,9 @@
     <children>
         <Pane prefHeight="567.0" prefWidth="376.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="208.0" pickOnBounds="true"
+                <ImageView  fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="208.0" pickOnBounds="true"
                            preserveRatio="true">
-                    <image>
-                        <Image url="@../../../pictures/fingerpoint.png"/>
-                    </image>
+                    <Image url="@../../pictures/fingerpoint.png"/>
                 </ImageView>
                 <Label layoutX="131.0" layoutY="243.0" text="ThatsApp" textFill="#fbfcfc">
                     <font>

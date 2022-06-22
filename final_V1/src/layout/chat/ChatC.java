@@ -13,11 +13,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import layout.addFriend.AddFriendC;
+import layout.login.LoginC;
 import muc.*;
 
 import java.io.IOException;
@@ -62,7 +64,7 @@ public class ChatC {
         return controller;
     }
 
-    public static void show(Stage owner) {
+    public static void show() {
         try {
             FXMLLoader loader = new FXMLLoader(ChatC.class.getResource("ChatV.fxml"));
             Parent root = (Parent) loader.load();
@@ -75,8 +77,7 @@ public class ChatC {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("ThatsApp");
-            stage.initOwner(owner);
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.getIcons().add(new Image("././pictures/fingerpoint.png"));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,6 +107,7 @@ public class ChatC {
                 List<User> chat = lvFriends.getSelectionModel().getSelectedItem().getUsers();
                 chatName.setText(chat.get(0).getName() + ", " + chat.get(1).getName());
                 selected = true;
+                vbChatBox.getChildren().clear();
             }
         });
     }
@@ -117,6 +119,7 @@ public class ChatC {
                 showMessage(tfMessage.getText());
                 try {
                     Client.sendMsg(tfMessage.getText(), lvFriends.getSelectionModel().getSelectedItem(), Type.STANDARD);
+
                 } catch (IOException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
                     alert.show();
@@ -147,10 +150,8 @@ public class ChatC {
 
         //Nachrichten auf dem Bildschirm anzeigen
         HBox hbox = new HBox();
-
         hbox.getChildren().addAll(lbMessage);
         hbox.setAlignment(Pos.CENTER_RIGHT);
-
 
         vbChatBox.getChildren().add(hbox);
 
@@ -185,11 +186,11 @@ public class ChatC {
         lbIncoming.getStyleClass().add("friend-msg");
         lbIncoming.setWrapText(true);
         lbIncoming.setMaxWidth(300);
-        HBox hbox1 = new HBox();
+        HBox hBoxIncoming = new HBox();
 
-        hbox1.getChildren().add(lbIncoming);
-        hbox1.setAlignment(Pos.CENTER_LEFT);
-        vbChatBox.getChildren().add(hbox1);
+        hBoxIncoming.getChildren().add(lbIncoming);
+        hBoxIncoming.setAlignment(Pos.CENTER_LEFT);
+        vbChatBox.getChildren().add(hBoxIncoming);
 
 
         //Add msg to Catalog

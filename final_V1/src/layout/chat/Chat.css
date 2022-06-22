@@ -20,7 +20,7 @@
     -fx-background-color: #2A363F;
     -fx-padding: 10px;
     -fx-text-alignment: justify;
-    -fx-font-size: 13px;
+    -fx-font-size: 15px;
 }
 
 .user-msg {
@@ -28,7 +28,7 @@
     -fx-background-color: #155956;
     -fx-padding: 10px;
     -fx-text-alignment: justify;
-    -fx-font-size: 13px;
+    -fx-font-size: 15px;
 }
 
 .menu-button > .arrow-button {
@@ -92,3 +92,4 @@
     -fx-background-color: white;
     -fx-background-radius: 5em;
 }
+

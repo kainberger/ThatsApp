@@ -2,10 +2,8 @@ package client;
 
 
 import javafx.application.Platform;
-import layout.chat.ChatC;
 import layout.login.LoginC;
 import layout.register.RegisterC;
-import muc.Message;
 import muc.TextMessage;
 import muc.Type;
 
@@ -21,7 +19,7 @@ public class ClientReceiverThread extends Thread {
 
 
     public ClientReceiverThread(Socket clientSocket) throws IOException {
-       // this.in = new ObjectInputStream(clientSocket.getInputStream());
+        // this.in = new ObjectInputStream(clientSocket.getInputStream());
         this.clientSocket = clientSocket;
         this.in = new ObjectInputStream(clientSocket.getInputStream());
     }
@@ -36,33 +34,57 @@ public class ClientReceiverThread extends Thread {
             while (clientSocket.isConnected()) {      //While connected
 
 
-                    Object o = in.readObject();
+                Object o = in.readObject();
 
-                    if (o instanceof TextMessage) {
-                        msg = (TextMessage) o;
+                if (o instanceof TextMessage) {
+                    msg = (TextMessage) o;
 
-                        if (msg.getType() == Type.ERROR){
-                            RegisterC.err = true;
-                            RegisterC.errorMsg = msg.getMsg();
-                            LoginC.err = true;
-                            LoginC.errorMsg = msg.getMsg();
-                        }
+                    switch (msg.getType()) {
 
-                        if (msg.getType() == Type.STANDARD){
-                            Platform.runLater(new ClientRunOnFXThread(msg));
-                        }
+                        case LOGIN:
+                            Platform.runLater(new Runnable() {      //run on FX Thread
+                                @Override
+                                public void run() {
+                                    LoginC.getController().openChat();
+                                }
+                            });
+                            break;
 
+                        case LOGIN_ERR:
+                            //Run on FX Thread
+                            Platform.runLater(new ClientRunErrorOnFx(msg.getMsg(), "login"));
 
-                        // if(msg.getChat().equals(chat))
-                        System.out.println("Message from: " + msg.getSrc().getName() + ": " + msg.getMsg());
+                            break;
+
+                        case REGISTRATION:
+
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    RegisterC.getController().openChat();
+                                }
+                            });
+                            break;
+
+                        case REGISTER_ERR:
+                            //Run on FX Thread
+                            Platform.runLater(new ClientRunErrorOnFx(msg.getMsg(),"register"));
+                            break;
+
+                        case STANDARD:
+                            Platform.runLater(new ClientRunMsgOnFXThread(msg));
+                            break;
                     }
+
+
+
+                    // if(msg.getChat().equals(chat))
+                    System.out.println("Message from: " + msg.getSrc().getName() + ": " + msg.getMsg());
                 }
+            }
 
 
-
-
-
-        }catch (ConnectException ce){
+        } catch (ConnectException ce) {
             Client.stop();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Everthing Stopped!");

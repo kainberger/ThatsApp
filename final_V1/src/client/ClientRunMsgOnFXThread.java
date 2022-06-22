@@ -3,11 +3,11 @@ package client;
 import layout.chat.ChatC;
 import muc.Message;
 
-public class ClientRunOnFXThread extends Thread{
+public class ClientRunMsgOnFXThread extends Thread{
 
     private Message msg;
 
-    public ClientRunOnFXThread(Message msg){
+    public ClientRunMsgOnFXThread(Message msg){
         this.msg = msg;
     }
 

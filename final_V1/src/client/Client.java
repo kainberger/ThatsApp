@@ -144,8 +144,11 @@ public class Client {
 
     }
 
+
+
     public static void register(String username, String password, String email) throws ThatsAppException, IOException {
-        String registerMsg = username + ";" + password + ";" + email; //TODO: pw as hash
+        String passwd = User.hashPassword(password);
+        String registerMsg = username + ";" + passwd + ";" + email; //TODO: pw as hash
 
          user = new User(username);
 
@@ -180,6 +183,8 @@ public class Client {
     }
 
     public static void sendMsg(String msg, Chat chat, Type type) throws IOException {
-        new ClientSenderThread(new TextMessage(msg,chat,user,type),out).start();
+        TextMessage message = new TextMessage(msg,chat,user,type);
+        new ClientSenderThread(message,out).start();
+        LocalCatalog.getInstance().add(message);
     }
 }

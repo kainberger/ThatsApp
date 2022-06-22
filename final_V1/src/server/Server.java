@@ -29,7 +29,7 @@ public class Server {
         }
     }
 
-    public final static int PORT = 4777;
+    public final static int PORT = 4995;
     public static HashMap<User, Socket> connectedUsers = new HashMap<>();
     public static HashMap<Socket, ObjectOutputStream> outputstreams = new HashMap<>();
     private static File userFile;

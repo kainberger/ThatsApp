@@ -105,9 +105,12 @@ public class ChatC {
             @Override
             public void changed(ObservableValue<? extends Chat> observable, Chat oldValue, Chat newValue) {
                 List<User> chat = lvFriends.getSelectionModel().getSelectedItem().getUsers();
-                chatName.setText(chat.get(0).getName() + ", " + chat.get(1).getName());
-                selected = true;
-                vbChatBox.getChildren().clear();
+                if(chat != null) {
+                    chatName.setText(chat.get(0).getName() + ", " + chat.get(1).getName());
+                    selected = true;
+                    vbChatBox.getChildren().clear();
+                    Client.getMessages(chat, controller);
+                }
             }
         });
     }
@@ -129,7 +132,7 @@ public class ChatC {
         }
     }
 
-    private void showMessage(String message) {
+    public void showMessage(String message) {
         //Datum und Zeit
         LocalDateTime dateTime = LocalDateTime.now();
 
@@ -158,8 +161,10 @@ public class ChatC {
     }
 
     @FXML
-    private void logout(ActionEvent event) {
+    private void logout(ActionEvent event) throws IOException {
+        LocalCatalog.getInstance().persist();
         stage.close();
+        LoginC.show(new Stage());
     }
 
     @FXML

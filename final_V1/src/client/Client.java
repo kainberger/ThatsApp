@@ -1,9 +1,11 @@
 package client;
 
+import layout.chat.ChatC;
 import muc.*;
 import server.ReceiverThread;
 import server.SenderThread;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +13,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 //TODO: send messages via Client.sendMsg();
 //TODO: send register message to Server when registering
@@ -27,7 +30,7 @@ public class Client {
 
     public static void connect() {
         try {
-            clientSocket = new Socket("127.0.0.1", 4777);
+            clientSocket = new Socket("127.0.0.1", 4995);
             out = new ObjectOutputStream(clientSocket.getOutputStream());
 
             System.out.println("Connected to Server");
@@ -35,102 +38,6 @@ public class Client {
             crt = new ClientReceiverThread(Client.clientSocket);
             crt.start();
 
-            //Login or Register
-
-            /*System.out.println("Login[1] or Register[2]?");
-            int choice = sc.nextInt();
-
-            if(choice == 2) {
-
-                //Register
-                System.out.println("Registration!");
-                System.out.print("Username: ");
-                String userName = sc.next();
-                System.out.println("Password: ");
-                String passwd = sc.next();
-                System.out.println("Email: ");
-                String email = sc.next();
-
-                String registerMsg = userName + ";" + passwd + ";" + email; //TODO: pw as hash
-
-                 user = new User(userName);
-
-
-                new ClientSenderThread(new TextMessage(registerMsg, null, user, Type.REGISTRATION), out).start();
-            }
-            else {
-                System.out.println("Login!");
-                System.out.println("Username: ");
-                String userName = sc.next();
-                System.out.println("Password:");
-                String passwd = sc.next();
-
-                 user = new User(userName);
-
-                String loginMsg = userName + ";" +passwd;
-                new ClientSenderThread(new TextMessage(loginMsg,null, user, Type.LOGIN),out).start();
-            }*/
-
-            /*String userName = args[0];
-            String passwd = args[1];
-
-            user = new User(userName);
-
-            String loginMsg = userName + ";" +passwd;
-            new ClientSenderThread(new TextMessage(loginMsg,null, user, Type.LOGIN),out).start();
-
-            new ClientReceiverThread(clientSocket).start();*/
-
-            /*Thread sender = new Thread(new Runnable() {
-                String msg;
-                @Override
-                public void run() {
-                    while(true){
-                        msg = sc.nextLine();
-                        try {
-                            out.writeObject(new Message(msg, chat, user));
-                            out.flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
-            sender.start();*/
-            /*in = new ObjectInputStream(clientSocket.getInputStream());
-
-            Thread receiver = new Thread(new Runnable() {
-                Message msg;
-
-                @Override
-                public void run() {
-                    try {
-
-                        while (clientSocket.isConnected()) {
-
-                            Object o = in.readObject();
-
-                            if (o instanceof Message) {
-                                msg = (Message) o;
-
-                                // if(msg.getChat().equals(chat))
-                                System.out.println("Message from: " + msg.getSrc().getName() + ": " + msg.getMsg());
-                            }
-                        }
-
-                        System.out.println("Server out of service");
-                        out.close();
-                        clientSocket.close();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            receiver.start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,7 +48,7 @@ public class Client {
         user = new User(userName);
         String loginMsg = userName + ";" + passwd;
         new ClientSenderThread(new TextMessage(loginMsg, null, user, Type.LOGIN), out).start();
-
+        restoreCat();
     }
 
 
@@ -186,5 +93,26 @@ public class Client {
         TextMessage message = new TextMessage(msg,chat,user,type);
         new ClientSenderThread(message,out).start();
         LocalCatalog.getInstance().add(message);
+    }
+
+    private static void restoreCat() {
+        LocalCatalog.getInstance().restore();
+    }
+
+    public static void getMessages(List<User> chat, ChatC controller) {
+        List<Message> msgs = LocalCatalog.getInstance().selectMsgsByChat(new Chat(chat));
+
+        int i = 0;
+        while(msgs != null && i < msgs.size()) {
+            if(msgs.get(i).getSrc().equals(user) && msgs.get(i) instanceof TextMessage)  {
+                TextMessage tmsg = (TextMessage) msgs.get(i);
+                controller.showMessage(tmsg.getMsg());
+            }
+            else if(msgs.get(i) instanceof TextMessage) {
+                TextMessage tmsg = (TextMessage) msgs.get(i);
+                controller.showIncomingMsg(tmsg);
+            }
+            i++;
+        }
     }
 }

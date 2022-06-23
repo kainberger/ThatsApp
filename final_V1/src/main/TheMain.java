@@ -25,4 +25,8 @@ public class TheMain extends Application {
         LocalCatalog.getInstance().persist();
         super.stop();
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

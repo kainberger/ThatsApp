@@ -224,8 +224,8 @@ public class ReceiverThread extends Thread {
         for (TextMessage m:Server.undeliveredMsgs) {
             if(m.getChat().getUsers().contains(u)) {
                 new SenderThread(m, getSockets(m.getChat())).start();
+                Thread.sleep(500);
                 System.err.println("msg sent to "+u + "/"+m+"/"+m.getChat()+"/"+m.getType()+"/"+Server.connectedUsers.get(u)+"/"+m.getSrc());
-                //Server.undeliveredMsgs.remove(m); //concurrentModificationException ==> Liste verändert sich während sie andauernd gelesen wird
                 msgs.add(m);
             }
 

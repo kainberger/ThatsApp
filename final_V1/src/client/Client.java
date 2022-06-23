@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO: send messages via Client.sendMsg();
-//TODO: send register message to Server when registering
 
 public class Client {
     public static Socket clientSocket; // socket used by client to send and recieve data from server
@@ -38,6 +36,7 @@ public class Client {
             crt = new ClientReceiverThread(Client.clientSocket);
             crt.start();
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,7 +47,7 @@ public class Client {
         user = new User(userName);
         String loginMsg = userName + ";" + passwd;
         new ClientSenderThread(new TextMessage(loginMsg, null, user, Type.LOGIN), out).start();
-        restoreCat();
+
     }
 
 
@@ -83,7 +82,7 @@ public class Client {
             clientSocket.close();
 
         } catch (IOException e) {
-            System.out.println("Everythin closed!");
+            System.out.println("Everything closed!");
         }
 
 

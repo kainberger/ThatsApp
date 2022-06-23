@@ -34,7 +34,6 @@ public class ClientReceiverThread extends Thread {
             while (clientSocket.isConnected()) {      //While connected
 
 
-                //System.out.println("state:"+in.available());
                 Object o = in.readObject();
 
                 if (o instanceof TextMessage) {
@@ -81,7 +80,6 @@ public class ClientReceiverThread extends Thread {
 
 
 
-                    // if(msg.getChat().equals(chat))
                     System.out.println("Message from: " + msg.getSrc().getName() + ": " + msg.getMsg());
                 }
             }
@@ -90,6 +88,7 @@ public class ClientReceiverThread extends Thread {
         } catch (ConnectException ce) {
             Client.stop();
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             System.out.println("Everthing Stopped!");
 
         }

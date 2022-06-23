@@ -118,6 +118,7 @@ public class ReceiverThread extends Thread {
             } else {
                 //save to unsent messages
                 Server.undeliveredMsgs.add(msg);
+                System.out.println("added " + msg);
             }
         }
 
@@ -216,19 +217,21 @@ public class ReceiverThread extends Thread {
     }
 
     private void deliverMsgs(User u) throws IOException, InterruptedException {
-        //Thread.sleep(3000);
+        Thread.sleep(500);
         List<Socket> s = new LinkedList<>();
         s.add(Server.connectedUsers.get(u));
         List<TextMessage> msgs = new LinkedList<>();
         for (TextMessage m:Server.undeliveredMsgs) {
             if(m.getChat().getUsers().contains(u)) {
-                new SenderThread(m, getSockets(m.getChat()));
-                System.out.println("msg sent to "+u + "/"+m+"/"+m.getChat()+"/"+m.getType()+"/"+Server.connectedUsers.get(u));
+                new SenderThread(m, getSockets(m.getChat())).start();
+                System.err.println("msg sent to "+u + "/"+m+"/"+m.getChat()+"/"+m.getType()+"/"+Server.connectedUsers.get(u)+"/"+m.getSrc());
                 //Server.undeliveredMsgs.remove(m); //concurrentModificationException ==> Liste verändert sich während sie andauernd gelesen wird
                 msgs.add(m);
             }
 
         }
+
+        System.out.println("---msgs---"+Server.undeliveredMsgs);
 
         for (TextMessage m : msgs) {
             Server.undeliveredMsgs.remove(m);

@@ -34,11 +34,12 @@ public class ClientReceiverThread extends Thread {
             while (clientSocket.isConnected()) {      //While connected
 
 
+                //System.out.println("state:"+in.available());
                 Object o = in.readObject();
 
                 if (o instanceof TextMessage) {
                     msg = (TextMessage) o;
-                    System.out.println("msg: "+msg);
+                    System.out.println("msg is "+msg);
 
                     switch (msg.getType()) {
 

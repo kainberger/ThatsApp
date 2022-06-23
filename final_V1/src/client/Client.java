@@ -118,6 +118,6 @@ public class Client {
 
     public static void logout() throws IOException {
         LocalCatalog.getInstance().persist();
-        new ClientSenderThread(new TextMessage("logout", chat, user, Type.LOGOUT), out);
+        new ClientSenderThread(new TextMessage("logout", chat, user, Type.LOGOUT), out).start();
     }
 }

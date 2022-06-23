@@ -57,6 +57,7 @@ public class ChatC {
     // Mit MenuItem ist es schwer, das Stage zu bekommen.
     private static Stage stage;
     private static ChatC controller;
+    public Chat chat;
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -107,6 +108,7 @@ public class ChatC {
             public void changed(ObservableValue<? extends Chat> observable, Chat oldValue, Chat newValue) {
                 List<User> chat = lvFriends.getSelectionModel().getSelectedItem().getUsers();
                 if(chat != null) {
+                    controller.chat = new Chat(chat);
                     chatName.setText(chat.get(0).getName() + ", " + chat.get(1).getName());
                     selected = true;
                     vbChatBox.getChildren().clear();
